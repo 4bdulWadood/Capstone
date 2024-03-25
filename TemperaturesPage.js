@@ -1,38 +1,45 @@
-import React, { useState } from 'react';
-import { View, Text, Image } from 'react-native'; // Import Image component
-import Slider from '@react-native-community/slider';
-import temperatureImage from './images/thermometer.jpg'; // Import your JPEG image
+import React, { useState } from "react";
+import './TemperaturesPage.css'; // Import the CSS styles
 
-const TemperaturesPage = () => {
-  const [sliderValue, setSliderValue] = useState(0); // State to hold the slider value
+export default function TemperaturesPage() {
+  const [tempValue, setTempValue] = useState(10);
+  const [tempColor, setTempColor] = useState("cold");
 
-  // Format temperature value with 'degrees Fahrenheit' string
-  const formatTemperature = (value) => {
-    if (typeof value === 'number' && !isNaN(value)) {
-      const intValue = Math.round(value); // Round the value to the nearest integer
-      return `${intValue} °F`;
-    } else {
-      return '0 °F'; // Handle null, undefined, or NaN values
+  const increaseTemp = () => {
+    setTempValue(tempValue + 1);
+
+    if (tempValue >= 30) { // Fixed logic to prevent going above 30
+      return;
+    }
+
+    if (tempValue >= 14) {
+      setTempColor("hot");
     }
   };
 
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ marginBottom: 20 }}>Temperature Page</Text>
-      <Image source={temperatureImage} style={{ width: 200, height: 200 }} /> {/* Display the image */}
-      <Slider
-        style={{ width: 200, height: 40 }}
-        minimumValue={0}
-        maximumValue={100}
-        minimumTrackTintColor="#FFFFFF"
-        maximumTrackTintColor="#000000"
-        step={1}
-        value={sliderValue}
-        onValueChange={(value) => setSliderValue(value)}
-      />
-      <Text>{formatTemperature(sliderValue)}</Text>
-    </View>
-  );
-};
+  const decreaseTemp = () => {
+    setTempValue(tempValue - 1);
 
-export default TemperaturesPage;
+    if (tempValue <= 1) { // Fixed logic to prevent going below 0
+      return;
+    }
+
+    if (tempValue <= 15) {
+      setTempColor("cold");
+    }
+  };
+
+  console.log(tempColor);
+
+  return (
+    <div className="app-container">
+      <div className="temperature-display-container">
+        <div className={`temperature-display ${tempColor}`}>{tempValue}</div>
+      </div>
+      <div className="button-container">
+        <button onClick={increaseTemp}>+</button>
+        <button onClick={decreaseTemp}>-</button>
+      </div>
+    </div>
+  );
+}

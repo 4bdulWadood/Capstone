@@ -1,0 +1,57 @@
+:root {
+    --cold: 5px 10px 75px #3737CD;
+    --hot:  5px 10px 75px #ff0000;
+}
+
+body {
+    font-family: sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column; /* Updated to column to align items vertically */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.temperature-display {
+    display: flex;
+    border-radius: 50%;
+    height: 220px;
+    width: 220px;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    color: #04040A;
+    margin-bottom: 20px; /* Added some space between the temperature display and the buttons */
+}
+
+.button-container {
+    display: flex; /* Ensures buttons are aligned horizontally */
+    justify-content: center; /* Center the buttons horizontally */
+}
+
+.button-container > button {
+    padding: 20px;
+    border: none;
+    background: none;
+    font-size: 32px;
+    margin: 20px;
+    color: gray;
+}
+
+.cold {
+    box-shadow: var(--cold);
+}
+
+.hot {
+    box-shadow: var(--hot);
+}
