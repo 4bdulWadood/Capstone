@@ -45,6 +45,7 @@ const BottomTabNavigator = ({ route }) => {
       <Tab.Screen
         name="Temperatures" // New screen name for TemperaturesPage
         component={TemperaturesPage} // Link to TemperaturesPage component
+        initialParams={{employeeId: employeeId}}
         options={{
           tabBarIcon: ({ color, size }) => <Icon name="thermostat" size={size} color={color} />, // Example icon
         }}

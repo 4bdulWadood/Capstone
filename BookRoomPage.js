@@ -157,6 +157,7 @@ const updateBookingStatus = async (room, time, booked) => {
 <text x="390" y="490" font-family="Verdana" font-size="15" fill="black">Meeting Room 7</text>
         </svg>
 
+
         {/* Modal for Booking */}
         <Modal
           animationType="slide"

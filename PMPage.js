@@ -240,8 +240,8 @@ const TasksPage = ({ route }) => {
   return (
     <View>
       <View style={styles.header}>
-        <Text style={styles.mytext}>Tasks for Phase: {phase.name}</Text>
-        <Text style={styles.mytext}>Project: {projectName}</Text>
+        {/* <Text style={styles.mytext}>{phase.name}</Text> */}
+        <Text style={styles.mytext}>{projectName}</Text>
           {employeeId === 'admin' && (
           <TouchableOpacity onPress={handleAddTask} style={styles.addButton}>
             <Text style={styles.addButtonText}>Add Task</Text>
@@ -339,13 +339,14 @@ const renderProjectCard = (navigation, project) => {
     >
       <View style={styles.projectCard}>
         <View style={styles.leftContent}>
-          <Text style={styles.cardTitle}>Name: {project.Name}</Text>
-          <Text style={styles.cardText}>Due Date: {project.Due_Date}</Text>
+          <Text style={styles.cardTitle}>{project.Name}</Text>
+          <Text style={styles.duedate}>Due Date: {project.Due_Date}</Text>
           {/* <Text style={styles.cardText}>Tasks: {project.Tasks ? project.Tasks.join(', ') : 'N/A'}</Text> */}
           <Text style={styles.cardText}>{teamText}</Text>
         </View>
+        <View style={styles.separator}></View>
         <View style={styles.rightContent}>
-          <Text style={styles.percentText}>Percentage Complete: {project.Percentage_Complete}%</Text>
+          <Text style={styles.percentText}>Percentage: {project.Percentage_Complete}%</Text>
           <CircularProgress variant="determinate" value={project.Percentage_Complete} />
         </View>
       </View> 
@@ -550,17 +551,17 @@ const styles = StyleSheet.create({
   phaseCard: {
     padding: 16,
   },
-  phaseTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
+  // phaseTitle: {
+  //   fontSize: 18,
+  //   fontWeight: 'bold',
+  //   marginBottom: 8,
+  // },
   phaseText: {
     fontSize: 16,
     color: '#555',
   },
   taskCard: {
-      backgroundColor: '#fff',
+    backgroundColor: '#f0ffff',
       padding: 10,
       margin: 3,
       marginLeft: 2,
@@ -583,28 +584,30 @@ const styles = StyleSheet.create({
     color: '#2ecc71',
   },
   projectCard: {
-    backgroundColor: '#fff',
+    backgroundColor: '#f0ffff',
     padding: 10,
     margin: 3,
     marginLeft: 2,
-    borderRadius: 5,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: '#000', // Black border
-    
     flexDirection: 'row',
     justifyContent: 'space-between',   
-    marginBottom: 10,
+    marginBottom: 12,
   },
+  
   cardTitle: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 8,
+    fontFamily: 'Snell Roundhandlic'
   },
   cardText: {
-    fontSize: 16,
+    fontSize: 14,
     font: "Quicksand",
+    fontWeight: 'bold',
     marginBottom: 6,
-    color: '#555',
+    color: '#005ced'
   },
   header: {
     flexDirection: 'row',
@@ -731,7 +734,8 @@ const styles = StyleSheet.create({
   mytext: {
     fontWeight: 'bold',
     fontSize: 15,
-    margin: 10,
+    margin: 5,
+    marginRight: 5
   },
 
   // Add the new styles
@@ -761,6 +765,7 @@ const styles = StyleSheet.create({
   phaseTitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    fontFamily: 'AvenirNext-BoldItalic'
   },
   phaseText: {
     marginTop: 10,
@@ -842,17 +847,33 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
-  cardTitle: {
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  cardText: {
-    marginBottom: 10
-  },
   percentText:{
     fontWeight: 'bold',
     marginBottom: 10,
+  },
+  separator: {
+    width: 1, // Width of the separator line
+    height: '80%', // Height of the separator line, adjust as needed
+    backgroundColor: '#888', // Grey color of the separator line
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 5,
+    marginBottom: 5,
+    shadowColor: '#000', // Color of the shadow
+    shadowOffset: {
+      width: 0, // No horizontal shadow offset
+      height: 3, // Adjust the vertical shadow offset
+    },
+    shadowOpacity: 0.6, // Opacity of the shadow
+    shadowRadius: 3, // Radius of the shadow
+  },
+
+  duedate:{
+    color: '#FF5C5C',
+    fontWeight: 'bold',
+    marginBottom: 8,
   }
+  
 
 });
 

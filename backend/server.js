@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 const User = require('./User');
 const Project = require('./Projects');
 const Room = require('./Rooms');
-const Notification = require('./Notifications')
+const Notification = require('./Notifications');
+const Temperature = require('./Temperature');
 
 const { exec } = require('child_process');
 const { getSystemErrorMap } = require('util');
@@ -467,15 +468,45 @@ notiRoutes.delete('/notifications/delete', async (req, res) => {
 });
 
 
+const tempRoutes = express.Router();
+tempRoutes.get('/temperature', async (req, res) => {
+  console.log('in the temp api');
+  try {
+    const temp = await Temperature.findOne(); // Find one document
+    console.log(temp)
+    if (temp) {
+      res.json(temp.temperature); // Send the temperature of the first document found
+    } else {
+      res.status(404).send('Temperature not found');
+    }
+  } catch (error) {
+    console.error('Error fetching temperature:', error);
+    res.status(500).send('Server error');
+  }
+});
 
-
+tempRoutes.post('/savetemperature', async (req, res) => {
+  console.log('Saving new temperature');
+  try {
+    // Assume there is only one temperature document to update
+    const result = await Temperature.findOneAndUpdate({}, { temperature: req.body.temperature }, { new: true, upsert: true });
+    if (result) {
+      res.json(result); // Send back the updated document
+    } else {
+      res.status(404).send('Temperature document not found and cannot be created');
+    }
+  } catch (error) {
+    console.error('Error saving temperature:', error);
+    res.status(500).send('Server error');
+  }
+});
 
 
 app.use('/auth', authRoutes);
 app.use('/auth', projectRoutes);
 app.use('/auth', roomRoutes);
 app.use('/auth', notiRoutes);
-
+app.use('/auth', tempRoutes);
 
 
 // Listen on all network interfaces
