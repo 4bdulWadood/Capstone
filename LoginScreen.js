@@ -6,8 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import colors from './colors';  // Assuming colors.js is in the same directory
 
-
-
 const COLORS = {
   primary: '#075eec',
   secondary: '#222',
@@ -25,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       const loginData = { employeeId, password };
       //const response = await axios.post('http://18.216.74.246:3001/auth/login', loginData);
-     const response = await axios.post('http://localhost:3001/auth/login', loginData);
+      const response = await axios.post('http://localhost:3001/auth/login', loginData);
 
       if (employeeId === 'admin' && password === 'admin') {
         navigation.navigate('Account', { employeeID: employeeId });
@@ -36,16 +34,15 @@ const LoginScreen = ({ navigation }) => {
       console.log('Login successful:', response.data);
       setLoggedIn(true);
       
-       // Extracting employeeId and employeeName directly from response.data
-       const { id, name: employeeName, pic: employeePic } = response.data;
+      // Extracting employeeId and employeeName directly from response.data
+      const { id, name: employeeName, pic: employeePic } = response.data;
 
-       // Logging the extracted values
-       console.log('Employee ID:', id);
-       console.log('Employee Name:', employeeName);
+      // Logging the extracted values
+      console.log('Employee ID:', id);
+      console.log('Employee Name:', employeeName);
  
-       // Navigating to BottomTabNav with employeeId and employeeName as parameters
-       navigation.navigate('BottomTabNav', { employeeId: id, employeeName: employeeName, employeePic: employeePic });
- 
+      // Navigating to BottomTabNav with employeeId and employeeName as parameters
+      navigation.navigate('BottomTabNav', { employeeId: id, employeeName: employeeName, employeePic: employeePic });
 
     } catch (error) {
       console.error('Error logging in:', error);
@@ -55,9 +52,8 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-
-    {/* Icon added above the Card */}
-    <IconButton
+      {/* Icon added above the Card */}
+      <IconButton
         icon="login-variant"
         color={COLORS.primary}
         size={70}
@@ -109,8 +105,6 @@ const LoginScreen = ({ navigation }) => {
           {error !== '' && <Text style={styles.errorMessage}>{error}</Text>}
         </Card.Content>
       </Card>
-
-      
     </View>
   );
 };
@@ -121,7 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#e8ecf4',
+    backgroundColor: '#40E0D0', // Updated to match the blue color
   },
   card: {
     width: '80%',
