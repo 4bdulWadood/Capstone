@@ -15,6 +15,7 @@ const RegisterScreen = ({ navigation }) => {
   const [employeeId, setEmployeeId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const url = 'https://capstone-cmml.onrender.com'
 
   const handleHome = () => {
     navigation.navigate('Home');
@@ -23,7 +24,7 @@ const RegisterScreen = ({ navigation }) => {
   const handleRegister = async () => {
     try {
       const registrationData = { employeeName, employeeId, password };
-      const response = await axios.post('http://18.216.105.223:3001/auth/register', registrationData);
+      const response = await axios.post(`${url}/auth/register`, registrationData);
       console.log('User registered successfully:', response.data);
       navigation.navigate('Login');
     } catch (error) {
@@ -136,6 +137,8 @@ const styles = StyleSheet.create({
   },
   card: {
     padding: 5,
+    borderWidth: 3,
+    borderColor: '#a832ff', // Neon-ish purple border color
   },
 });
 

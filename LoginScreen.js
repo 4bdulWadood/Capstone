@@ -6,6 +6,10 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import colors from './colors';  // Assuming colors.js is in the same directory
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 74636fde2549a04890819bba86fcc7fc62da5df7
 const COLORS = {
   primary: '#075eec',
   secondary: '#222',
@@ -18,12 +22,17 @@ const LoginScreen = ({ navigation }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const url = 'https://capstone-cmml.onrender.com'
+  
   const handleLogin = async () => {
     try {
       const loginData = { employeeId, password };
+<<<<<<< HEAD
      // const response = await axios.post('http://18.216.105.223:3001/auth/login', loginData);
      const response = await axios.post('http://localhost:3001/auth/login', loginData);
+=======
+      const response = await axios.post(`${url}/auth/login`, loginData);
+>>>>>>> 74636fde2549a04890819bba86fcc7fc62da5df7
 
       if (employeeId === 'admin' && password === 'admin') {
         navigation.navigate('Account', { employeeID: employeeId });
@@ -123,7 +132,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#fff',
     elevation: 4,
-    height: '60%',
+    borderWidth: 3,
+    borderColor: '#a832ff', // Neon-ish purple border color
+    height: '65%',
   },
   title: {
     fontSize: 27,

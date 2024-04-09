@@ -15,6 +15,7 @@ import AddNotification from './AddNotification';
 
 
 const Stack = createStackNavigator();
+// const stylesCss = Asset.fromModule(require('./App.css')).uri;
 
 const App = () => {
   return (

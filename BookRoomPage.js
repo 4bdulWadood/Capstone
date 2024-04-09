@@ -17,7 +17,8 @@ const BookRoomPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState('');
   const [notification, setNotification] = useState({ visible: false, message: '', theme: 'light' });
-
+  const API_URL = 'https://capstone-cmml.onrender.com';
+  
   const showNotification = (message, theme = 'light') => {
     setNotification({ visible: true, message, theme });
     setTimeout(() => {
@@ -35,7 +36,7 @@ const BookRoomPage = () => {
   // method to check if room is available or not
   const fetchRoomData = async (room, time) => {
     try {
-      const response = await axios.get(`http://localhost:3001/auth/rooms/${room}/times/${time}`);
+      const response = await axios.get(`${API_URL}/auth/rooms/${room}/times/${time}`);
       console.log(response.data);
 
       // Return the relevant data, e.g., response.data.booked
@@ -109,7 +110,7 @@ const BookRoomPage = () => {
 const updateBookingStatus = async (room, time, booked) => {
   try {
     // Update the request to reflect the desired status based on the 'booked' parameter
-    await axios.put(`http://localhost:3001/auth/rooms/${room}/times/${time}`, { booked });
+    await axios.put(`${API_URL}/auth/rooms/${room}/times/${time}`, { booked });
   } catch (error) {
     console.error(`Error updating booking status for ${room} at ${time}:`, error);
   }

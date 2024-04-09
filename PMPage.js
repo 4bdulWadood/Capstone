@@ -21,12 +21,14 @@ import AddProjectPage from './AddProjectPage'; // Adjust the import path as need
 import TaskToggle from './TaskToggle'; // Import the TaskToggle component
 import NotificationBar from './NotificationBar';
 import CircularProgress from '@mui/material/CircularProgress';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';  
-// import Icon from 'react-native-vector-icons/FontAwesome';
+
+const API_URL = 'https://capstone-cmml.onrender.com'; // Define your API URL here
+
 
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
+
 
 const PHASES = [
   { name: 'Planning', percentage: Math.floor(Math.random() * 100) },
@@ -35,16 +37,36 @@ const PHASES = [
   { name: 'Deployment', percentage: Math.floor(Math.random() * 100) },
 ];
 
-const renderPhaseCard = (navigation, phase, projectName) => (
-  <TouchableOpacity
-    onPress={() => navigation.navigate('Tasks', { phase, projectName })}
-  >
-    <View style={styles.projectCard}>
-        <Text style={styles.cardTitle}>{phase.name}</Text>
-        <Text style={styles.cardText}>{phase.percentage}% Completed</Text>
-    </View>
-  </TouchableOpacity>
-);
+const renderPhaseCard = (navigation, phase, projectName, project) => {
+  var count = 0, count2 = 0;
+  project.Tasks.forEach(item =>{
+    if(phase.name === item.taskPhase){
+      count++;
+    }
+
+    if(phase.name === item.taskPhase && item.taskComplete){
+      count2++;
+    }
+  })
+ 
+  console.log(count, count2);
+  var percentage = (count2 / count) * 100;
+
+  if(isNaN(percentage)){
+    percentage = 0;
+  }
+
+  return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Tasks', { phase, projectName })}
+      >
+        <View style={styles.projectCard}>
+            <Text style={styles.cardTitle}>{phase.name}</Text>
+            <Text style={styles.cardText}>{percentage}% Completed</Text>
+        </View>
+      </TouchableOpacity>
+  )
+} 
 
 const PMPage = ({ route }) => {
   const { employeeId, employeeName} = route.params;
@@ -52,6 +74,7 @@ const PMPage = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
+    
     navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: 'row', marginRight: 10 }}>
@@ -60,13 +83,13 @@ const PMPage = ({ route }) => {
               style={{ marginRight: 20 }}
               onPress={() => navigation.navigate('AddProjectPage')}
             >
-              <Icon name="add-box" size={30} color="#3498db" />
+              <Icon name="add-box" size={30} color='#a832ff' />
             </TouchableOpacity>
           )}
           <TouchableOpacity
             onPress={() => navigation.navigate('NotificationBar')}
           >
-            <Icon name="notifications" size={30} color="#3498db" />
+            <Icon name="notifications" size={30} color='#a832ff' />
           </TouchableOpacity>
         </View>
       ),
@@ -85,7 +108,7 @@ const PMPage = ({ route }) => {
 };
 
 
-const renderTaskCard = (task) => {
+const renderTaskCard = (task, projectName) => {
   // If you need to log the task, do it inside the function body before the return statement.
   console.log('task', task);
 
@@ -95,7 +118,7 @@ const renderTaskCard = (task) => {
       <Text style={styles.phase}>Phase: {task.taskPhase}</Text>
       
       {/* Include the TaskToggle component here */}
-      <TaskToggle project={task.project} taskName={task.taskName} />
+      <TaskToggle project={projectName} taskName={task.taskName} taskComplete={task.taskComplete} />
 
       <Text style={styles.completionStatus}>
         Completion Status: {task.taskComplete ? 'Complete' : 'Incomplete'}
@@ -123,10 +146,10 @@ const TasksPage = ({ route }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://18.216.105.223:3001/auth/projects');
-        // const response = await axios.get('http://localhost:3001/auth/projects');
+        const response = await axios.get(`${API_URL}/auth/projects`);
+        console.log(response);
         const project = response.data.find((p) => p.Name === projectName);
-
+  
         if (project) {
           const tasksForPhase = project.Tasks.filter((t) => t.taskPhase === phase.name);
           setProjectTasks(tasksForPhase);
@@ -135,8 +158,10 @@ const TasksPage = ({ route }) => {
         console.error('Error fetching projects:', error);
       }
     };
-
+  
     fetchTasks();
+    setNewProjectName(projectName); // Automatically set the project name
+    setNewTaskPhase(phase.name)
   }, [phase.name, projectName]);
 
   const handleUpdateSampleEmployees = async () => {
@@ -146,8 +171,8 @@ const TasksPage = ({ route }) => {
     }
 
     try {
-      const response = await axios.get('http://18.216.105.223:3001/auth/users');
-      const user_Data = await axios.post('http://18.216.105.223/auth/get-suggestions.py', {
+      const response = await axios.get(`${API_URL}/auth/users`);
+      const user_Data = await axios.post(`${API_URL}/auth/get-suggestions.py`, {
         user_data: response.data,
         new_task_name: newTaskName,
       });
@@ -195,10 +220,10 @@ const TasksPage = ({ route }) => {
     try {
       // Make the API call to submit the task details
       // Adjust the URL and request payload according to your backend API
-       await axios.post('http://18.216.105.223:3001/auth/addtask', taskDetails);
+       await axios.post(`${API_URL}/auth/addtask`, taskDetails);
        console.log('Task successfully added with employees');
 
-      await axios.post('http://18.216.105.223:3001/auth/addtasktoproject', taskDetails);
+      await axios.post(`${API_URL}/auth/addtasktoproject`, taskDetails);
       console.log('Task successfully added to project data');
   
       // Handle any post-save actions, like closing the modal or clearing the form
@@ -253,7 +278,7 @@ const TasksPage = ({ route }) => {
       <FlatList
         data={projectTasks}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => renderTaskCard(item)}
+        renderItem={({ item }) => renderTaskCard(item, projectName)}
       />
 
       <Modal
@@ -267,10 +292,12 @@ const TasksPage = ({ route }) => {
             <View style={styles.leftSide}>
               <Text style={styles.modalTitle}>Add Task</Text>
               <TextInput
-                style={styles.inputField}
-                placeholder="Project Name"
-                onChangeText={(text) => setNewProjectName(text)}
+              style={styles.inputField}
+              placeholder="Project Name"
+              value={newProjectName} // Set the value to newProjectName state
+              editable={false} // Make the TextInput non-editable
               />
+
               <TextInput
                 style={styles.inputField}
                 placeholder="Task Name"
@@ -280,6 +307,8 @@ const TasksPage = ({ route }) => {
                 style={styles.inputField}
                 placeholder="Phase"
                 onChangeText={(text) => setNewTaskPhase(text)}
+                value={newTaskPhase} // Set the value to newProjectName state
+                editable={false} // Make the TextInput non-editable
               />
               <TextInput
                 style={styles.inputField}
@@ -328,11 +357,42 @@ const TasksPage = ({ route }) => {
   );
 };
 
+// to calculate projectCompletion
+const calculateProjectCompletion = (project) => {
+  let numCompletedTasks = 0;
+  project.Tasks.forEach((task) => {
+    if (task.taskComplete) {
+      numCompletedTasks++;
+    }
+  });
 
-
+  let percentageCompleted = Math.round((numCompletedTasks / project.Tasks.length) * 100);
+  return isNaN(percentageCompleted) ? 0 : percentageCompleted;
+};
 
 const renderProjectCard = (navigation, project) => {
   const teamText = project.Team ? `Team: ${project.Team.join(', ')}` : 'Team: N/A';
+  
+  //Use the project.Name to calculate the Percentage_Complete for a project, need to go through all tasks in every phase. Display that instead of Percentage_Complete. 
+  var num = 0;
+  project.Tasks.forEach((val)=>{
+      console.log(val)
+      val.taskComplete ? num++ : null;
+  })
+
+  var percentage = Math.round((num/project.Tasks.length)*100);
+  
+  if(isNaN(percentage)){
+    percentage = 0;
+  }
+
+  let color = '#2ecc71'; // Default color: green
+
+  if (percentage < 35) {
+    color = '#ff5c5c'; // Red color for less than 35%
+  } else if (percentage >= 35 && percentage < 70) {
+    color = '#f1c40f'; // Yellow color for 35% to 70%
+  }
 
   return (
     <TouchableOpacity
@@ -347,8 +407,8 @@ const renderProjectCard = (navigation, project) => {
         </View>
         <View style={styles.separator}></View>
         <View style={styles.rightContent}>
-          <Text style={styles.percentText}>Percentage: {project.Percentage_Complete}%</Text>
-          <CircularProgress variant="determinate" value={project.Percentage_Complete} />
+          <Text style={styles.percentText}>Percentage: {percentage}%</Text>
+          <CircularProgress thickness='8'  variant="determinate" value={percentage} color="secondary"/>
         </View>
       </View> 
     </TouchableOpacity>
@@ -382,11 +442,31 @@ const ProjectDetailsScreen = ({ route }) => {
   const data = {
     labels: PHASES.map(phase => phase.name), //yAxisLabel: 'Percentage Complete',
     datasets: [{
-      data: PHASES.map(phase => phase.percentage)
+      data: PHASES.map(phase => {
+        var count = 0, count2 = 0;
+    
+        project.Tasks.forEach(item =>{
+          if(phase.name === item.taskPhase){
+            count++;
+          }
+      
+          if(phase.name === item.taskPhase && item.taskComplete){
+            count2++;
+          }
+        })
+    
+        var percentage = (count2 / count) * 100;
+        if(isNaN(percentage)){
+          percentage = 0;
+        }
+    
+        return percentage;
+      })
     }]
   };
 
-  
+  //Calculate phase and phase percentage data by querying the backend, for the projects just like before, and setting the value for the PHASE variable.
+  console.log(project)
 
   return (
     <ScrollView>
@@ -395,7 +475,7 @@ const ProjectDetailsScreen = ({ route }) => {
         <FlatList
           data={PHASES}
           keyExtractor={(item) => item.name}
-          renderItem={({ item }) => renderPhaseCard(navigation, item, project.Name)}
+          renderItem={({ item }) => renderPhaseCard(navigation, item, project.Name, project)}
           scrollEnabled={false} // Disables scrolling for the FlatList, since it's inside a ScrollView
         />
         <Text style={styles.mytext}>Progress Chart</Text>
@@ -421,10 +501,9 @@ const AllScreen = ({route}) => {
 
   const fetchProjects = async () => {
     try {
-      //const response = await axios.get(`http://18.216.105.223:3001/auth/assignedprojects?employeeName=${employeeName}`);
-       const response =  await axios.get(`http://localhost:3001/auth/projects`)
+      const response = await axios.get(`${API_URL}/auth/assignedprojects?employeeName=${employeeName}`);
+
       setProjects(response.data);
-      console.log(response.data)
     } catch (error) {
       console.error('Error fetching projects:', error);
       setError('Error fetching projects');
@@ -435,12 +514,14 @@ const AllScreen = ({route}) => {
     fetchProjects();
   }, []);
 
+  console.log(projects)
+
   return (
     <ScrollView>
       <View>
         <Text style={styles.mytext}>All Projects</Text>
         <TouchableOpacity onPress={fetchProjects} style={{ alignSelf: 'flex-end', marginTop: -10 }}>
-          <Icon name="refresh" size={20} color="#3498db" style={{ marginRight: 20, marginTop: -20, marginBottom: 5 }} />
+          <Icon name="refresh" size={20} color='#a832ff' style={{ marginRight: 20, marginTop: -20, marginBottom: 5 }} />
         </TouchableOpacity>
 
         <FlatList
@@ -454,33 +535,30 @@ const AllScreen = ({route}) => {
   );
 };
 
-const OngoingScreen = ({route}) => {
+const OngoingScreen = ({ route }) => {
   const navigation = useNavigation();
   const [projects, setProjects] = useState([]);
-  const {employeeName} = route.params;
+  const { employeeName } = route.params;
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        //const response = await axios.get(`http://18.216.105.223:3001/auth/assignedprojects?employeeName=${employeeName}`);
-        const response =  await axios.get(`http://localhost:3001/auth/projects`)
-      setProjects(response.data);
+        const response = await axios.get(`${API_URL}/auth/assignedprojects?employeeName=${employeeName}`);
+        const filteredProjects = response.data.filter((project) => calculateProjectCompletion(project) < 100);
+        setProjects(filteredProjects);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
     };
-
     fetchProjects();
   }, []);
-
-  const ongoingProjects = projects.filter((project) => project.Percentage_Complete < 100);
 
   return (
     <ScrollView>
       <View>
         <Text style={styles.mytext}>Ongoing Projects</Text>
         <FlatList
-          data={ongoingProjects}
+          data={projects}
           keyExtractor={(item) => item.Name}
           renderItem={({ item }) => renderProjectCard(navigation, item)}
         />
@@ -489,33 +567,30 @@ const OngoingScreen = ({route}) => {
   );
 };
 
-const CompletedScreen = ({route}) => {
+const CompletedScreen = ({ route }) => {
   const navigation = useNavigation();
   const [projects, setProjects] = useState([]);
-  const {employeeName} = route.params;
+  const { employeeName } = route.params;
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-       const response = await axios.get(`http://18.216.105.223:3001/auth/assignedprojects?employeeName=${employeeName}`);
-     
-      setProjects(response.data);
+        const response = await axios.get(`${API_URL}/auth/assignedprojects?employeeName=${employeeName}`);
+        const filteredProjects = response.data.filter((project) => calculateProjectCompletion(project) === 100);
+        setProjects(filteredProjects);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
     };
-
     fetchProjects();
   }, []);
-
-  const completedProjects = projects.filter((project) => project.Percentage_Complete === 100);
 
   return (
     <ScrollView>
       <View>
         <Text style={styles.mytext}>Completed Projects</Text>
         <FlatList
-          data={completedProjects}
+          data={projects}
           keyExtractor={(item) => item.Name}
           renderItem={({ item }) => renderProjectCard(navigation, item)}
         />
@@ -523,7 +598,6 @@ const CompletedScreen = ({route}) => {
     </ScrollView>
   );
 };
-
 const PMTopTabNavigator = ({ route }) => {
   // Destructuring employeeId and employeeName from route.params
   const { employeeId, employeeName } = route.params;
@@ -539,7 +613,7 @@ const PMTopTabNavigator = ({ route }) => {
 const styles = StyleSheet.create({
   // ... your existing styles
   phaseCardContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#111',
     borderRadius: 8,
     margin: 10,
     shadowColor: '#000',
@@ -562,13 +636,14 @@ const styles = StyleSheet.create({
     color: '#555',
   },
   taskCard: {
-    backgroundColor: '#f0ffff',
-      padding: 10,
-      margin: 3,
-      marginLeft: 2,
-      borderRadius: 5,
-      borderWidth: 1,
-      borderColor: '#000', // Black border
+    backgroundColor: 'white',
+    padding: 10,
+    margin: 5,
+    marginLeft: 2,
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#a832ff', // Neon-ish purple border color
+    marginBottom: 12,
   },
   taskName: {
     fontSize: 18,
@@ -585,30 +660,30 @@ const styles = StyleSheet.create({
     color: '#2ecc71',
   },
   projectCard: {
-    backgroundColor: '#f0ffff',
+    backgroundColor: 'white',
     padding: 10,
-    margin: 3,
+    margin: 5,
     marginLeft: 2,
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#000', // Black border
+    borderWidth: 3,
+    borderColor: '#a832ff', // Neon-ish purple border color
     flexDirection: 'row',
-    justifyContent: 'space-between',   
+    justifyContent: 'space-between',
     marginBottom: 12,
   },
+  
   
   cardTitle: {
     fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 8,
-    fontFamily: 'Snell Roundhandlic'
+    fontFamily: 'sans-serif'
   },
   cardText: {
     fontSize: 14,
-    font: "Quicksand",
-    fontWeight: 'bold',
+    fontFamily: 'sans-serif',
     marginBottom: 6,
-    color: '#005ced'
+    color: '#000000'
   },
   header: {
     flexDirection: 'row',

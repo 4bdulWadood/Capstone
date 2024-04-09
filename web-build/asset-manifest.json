@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/static/js/main.10b453c2.js",
+    "static/js/787.22fcea2a.js": "/static/js/787.22fcea2a.js",
+    "static/media/MaterialCommunityIcons.ttf": "/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
+    "static/media/MaterialIcons.ttf": "/static/media/MaterialIcons.120b4c7bbd155bd0a04d.ttf",
+    "static/media/desk-synergy.png": "/static/media/desk-synergy.3122e748f2d3cda8321d.png",
+    "index.html": "/index.html",
+    "serve.json": "/serve.json",
+    "manifest.json": "/manifest.json",
+    "main.10b453c2.js.map": "/static/js/main.10b453c2.js.map",
+    "787.22fcea2a.js.map": "/static/js/787.22fcea2a.js.map"
+  },
+  "entrypoints": [
+    "static/js/787.22fcea2a.js",
+    "static/js/main.10b453c2.js"
+  ]
+}

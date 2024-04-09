@@ -1,6 +1,8 @@
+/* temp page css */
+
 :root {
     --cold: 5px 10px 75px #3737CD;
-    --hot:  5px 10px 75px #ff0000;
+    --hot: 5px 10px 75px #ff0000;
 }
 
 body {
@@ -15,7 +17,7 @@ body {
 
 .app-container {
     display: flex;
-    flex-direction: column; /* Updated to column to align items vertically */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -31,16 +33,16 @@ body {
     align-items: center;
     font-size: 48px;
     color: #04040A;
-    margin-bottom: 20px; /* Added some space between the temperature display and the buttons */
+    margin-bottom: 20px;
 }
 
 .button-container {
-    display: flex; /* Ensures buttons are aligned horizontally */
-    justify-content: center; /* Center the buttons horizontally */
+    display: flex;
+    justify-content: center;
 }
 
 .button-container > button {
-    padding: 20px;
+    padding: 30px; /* Increased padding for bigger buttons */
     border: none;
     background: none;
     font-size: 32px;
@@ -55,3 +57,10 @@ body {
 .hot {
     box-shadow: var(--hot);
 }
+
+/* Additional styling for the Maintain button */
+.maintain-button {
+    padding: 20px 30px; /* Adjust padding for the Maintain button */
+    font-size: 18px; /* Adjust font size for the Maintain button */
+}
+

@@ -11,8 +11,7 @@ const projectSchema = new Schema({
     taskPhase: String,
     taskComplete: Boolean, 
     employees: [String], 
-  }
-      ],
+  }],
 });
 
 module.exports = mongoose.model('projects', projectSchema);

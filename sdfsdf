@@ -1,0 +1,408 @@
+[33mcommit 49d097cbcae00dc8ab3d05742539adfcb1b75ef7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Tue Apr 2 23:04:46 2024 -0400
+
+    ip change
+
+[33mcommit 48b3fdb12861b2b62d9b98a7b95b00a9930132d5[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Tue Apr 2 19:33:06 2024 -0400
+
+    deployment files
+
+[33mcommit 181eb02ffb1e7ad4fc420747ee35645ab5f06a33[m
+Merge: 1d55c1c d36719a
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Wed Mar 27 11:29:19 2024 -0400
+
+    Merge branch 'main' of https://github.com/4bdulWadood/Capstone
+
+[33mcommit 1d55c1c6e68022ba5d75d0c0caac79ef1d73931c[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Wed Mar 27 11:28:39 2024 -0400
+
+    UI chages
+
+[33mcommit d36719a3d6cb284c82fabbad7001bb510c9467a1[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Tue Mar 26 00:36:26 2024 -0400
+
+    temp feature done again
+
+[33mcommit f371cc2123add97c7d20393fe886644efc34023b[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sun Mar 24 23:32:01 2024 -0400
+
+    Temperature Feature Complete
+
+[33mcommit 8b277611d7fbd4c964086338bf3d6342b7ca1e28[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sun Mar 24 22:39:16 2024 -0400
+
+    tasks are functional again
+
+[33mcommit 3df5743a97fd6b95b0b0a2d7f0d251d08f24c49a[m
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Sat Mar 23 00:13:50 2024 -0400
+
+    temperature page modifications
+
+[33mcommit 476e8353975c391657e686a2a89e9ff0e1a8171a[m
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Fri Mar 22 00:00:27 2024 -0400
+
+    temperature control page
+
+[33mcommit 67b883019d8738af36179b83eb525b3f8f90fbf4[m
+Merge: 75b6ace d196080
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Thu Mar 21 21:13:46 2024 -0400
+
+    Merge branch 'main' of https://github.com/4bdulWadood/Capstone
+
+[33mcommit 75b6acef169dba2da73c5549996061f84083c579[m
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Thu Mar 21 21:08:18 2024 -0400
+
+    recent pull
+
+[33mcommit d196080f4e4557fd04057c1ca2708a3886d5ac11[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Thu Mar 21 14:53:09 2024 -0400
+
+    refresh and refetch notifications
+
+[33mcommit 413b204181fd9801ae0e166f12806b949b2a44aa[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Thu Mar 21 00:17:41 2024 -0400
+
+    Notification Feature
+
+[33mcommit 84c865eb23bf7e8271a6de82667bd64d1db0615e[m
+Merge: c8de698 bd04a93
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Tue Mar 19 21:27:39 2024 -0400
+
+    Merge branch 'main' of https://github.com/4bdulWadood/Capstone
+
+[33mcommit bd04a938879dc1e548b71035fb2572d2546510dd[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Tue Mar 19 16:59:23 2024 -0400
+
+    add project fields must not be empty
+
+[33mcommit c8de698fc04ac43c6f24922ba945a45d6593759d[m
+Merge: a89bd1e 0982f6f
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Mon Mar 18 12:27:55 2024 -0400
+
+    Merge branch 'main' of https://github.com/4bdulWadood/Capstone
+
+[33mcommit a89bd1e99914c004403f9a59c71b32b403a47995[m
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Mon Mar 18 12:24:30 2024 -0400
+
+    recent commit
+
+[33mcommit 0982f6f6b539f20a19e84440b35775eb62c5a29a[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Fri Mar 15 02:03:09 2024 -0400
+
+    employee specific projects + employee profile pics
+
+[33mcommit be081241573341f55b4ed3b2f99f305fda4cdb61[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Wed Mar 13 22:18:38 2024 -0400
+
+    refresh button for all projects
+
+[33mcommit 4bd80f05276734138d5987d39d26f967560bc401[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Wed Mar 13 16:06:56 2024 -0400
+
+    changes to admin-only features
+
+[33mcommit 7c33c3ab75e05f4fb4277688551b44da05ae2455[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Wed Mar 13 00:38:32 2024 -0400
+
+    Modified UI Changes
+
+[33mcommit 82a6d64268a08f1426d864784e4e56ca40fd7053[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Tue Mar 12 23:12:49 2024 -0400
+
+    card borders/ chart changes
+
+[33mcommit a1e7a6d8363975854b44d50640c3b35a4cefd45d[m
+Merge: 855108c ee4bb1b
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Tue Mar 12 22:00:11 2024 -0400
+
+    Merge branch 'main' of https://github.com/4bdulWadood/Capstone
+
+[33mcommit 855108c76317b16974ab5bb8a051c9e4158ce984[m
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Tue Mar 12 21:53:19 2024 -0400
+
+    task toggle
+
+[33mcommit ee4bb1b801094c67f99b4961e57a1f71e1476271[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Mon Mar 11 18:55:59 2024 -0400
+
+    added graph + cloud db
+
+[33mcommit e1c0519b546f531a0929706b9d4ac44dcfc59db1[m
+Merge: 53c12f8 0a9496f
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Sat Feb 17 16:41:33 2024 -0500
+
+    added + button to PM page
+
+[33mcommit 53c12f8446f2a0a639c9e26aeb4796d302cba400[m
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Sat Feb 17 14:27:52 2024 -0500
+
+    added plus button
+
+[33mcommit 0a9496f51bc0d9bf542bf00a9efe94dbbec84498[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sat Feb 17 14:22:33 2024 -0500
+
+    Modified AddProject
+
+[33mcommit beceb53e88951392ca45d518c2cb36d14890fe6c[m
+Merge: 3fff397 3e15adf
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Fri Feb 16 19:40:37 2024 -0500
+
+    resolved merge conflicts
+
+[33mcommit 3fff3979d317a45c17c3d4aca9ede39ca957b56a[m
+Author: Raiyan Islam <raiyan.islam@torontomu.ca>
+Date:   Fri Feb 16 19:28:13 2024 -0500
+
+    pull code with onboarding page
+
+[33mcommit 3e15adf2b6f8035d5c062797caf1662b2f74ce7e[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Thu Feb 15 18:39:24 2024 -0500
+
+    Updated Tasks to be Dynamic
+
+[33mcommit 32ea4ae03501c299059beb190c9b117e165fb230[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Wed Feb 14 17:54:24 2024 -0500
+
+    PM progress
+
+[33mcommit cd5439f638807b54d74effe0a07b3d2bbf4033fd[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sun Feb 11 16:51:29 2024 -0500
+
+    AI improvments
+
+[33mcommit 9146bac98a55adf1076919447c49d84fc0462cb9[m
+Author: 4bdulWadood <a1syed@torontomu.ca>
+Date:   Sat Feb 10 14:29:27 2024 -0500
+
+    AI algorithm frontend integration
+
+[33mcommit cb38446dfd975c64262a24938ee209daae9a0637[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sat Feb 3 18:24:06 2024 -0500
+
+    AI Integration
+
+[33mcommit 422a9831f94f9aa746a0a03963e5ae03f0156031[m
+Author: 4bdulWadood <a1syed@torontomu.ca>
+Date:   Sat Feb 3 15:45:50 2024 -0500
+
+    added API route handler for AI stuff
+
+[33mcommit ee229480b126dde1a7ad5a73fc22f47f413c556b[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Sat Feb 3 15:41:45 2024 -0500
+
+    AI Suggestion Modal Changes
+
+[33mcommit d71a71ed87808a2d258694e2e2e10276b150ed68[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Sat Feb 3 14:34:26 2024 -0500
+
+    modal UI changes for BookRoom
+
+[33mcommit 0024f2e27c716cb8576b6fef7073f71f92401840[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Fri Feb 2 21:02:18 2024 -0500
+
+    Fixed Meeting Room DB
+
+[33mcommit 7b9235ec703f73ac2f0cd3c276903c5227cf51ef[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Tue Jan 30 22:40:28 2024 -0500
+
+    Meeting Rooms UI/backend
+
+[33mcommit 9755caa5aa2bcb1f495d48ea7a3fb54bfd21494d[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sun Jan 28 17:10:04 2024 -0500
+
+    Added Tasks
+
+[33mcommit 18806b977998b83e0130d0250c4b92ff78f06fcd[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sat Jan 27 17:18:51 2024 -0500
+
+    Fixed Project Data
+
+[33mcommit 933bbb6fc7a6523e66aeefa4255645bb44407d07[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sat Jan 27 15:50:03 2024 -0500
+
+    Fixed api
+
+[33mcommit 9cbb6a41a76b8c11f948225a2dd6b4bbe8f1a440[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sat Jan 20 19:49:45 2024 -0500
+
+    DB
+
+[33mcommit e89b49618072e93b89defb6dc84795a1ba99228c[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Sat Jan 20 19:33:42 2024 -0500
+
+    authScreens
+
+[33mcommit 1bea66821f52b4b45090f21af6e439fe830022bc[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sun Jan 14 20:46:09 2024 -0500
+
+    Added Projects to MongoDB
+
+[33mcommit 9686ac6b31e5d020069caa889cbf20ed1e591afb[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Sat Jan 13 20:14:16 2024 -0500
+
+    Fixed Routing & Admin/Employee View
+
+[33mcommit fe36fe044c60c1a0af130efe63576be57ab5e4d7[m
+Merge: f1d4786 183503a
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Thu Dec 21 17:37:04 2023 -0500
+
+    Merge remote-tracking branch 'refs/remotes/origin/main'
+
+[33mcommit 183503ab39f48eb869a46319101c62d1e04e2382[m
+Author: 4bdulWadood <a1syed@torontomu.ca>
+Date:   Thu Dec 21 17:08:11 2023 -0500
+
+    Updating personal IP to localhost variable
+
+[33mcommit f1d4786a3e6cb5ba87d03f52933c957ab284b75e[m
+Merge: 4c6c460 41585f0
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Thu Dec 21 15:38:51 2023 -0500
+
+    Merge branch 'main' of https://github.com/4bdulWadood/Capstone
+
+[33mcommit 41585f061c56d3b4e28a5838c694dee3c2b9bf24[m
+Author: Syed Wadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Mon Dec 18 21:32:12 2023 -0500
+
+    Added code to factor in ActiveTasks.
+
+[33mcommit 4c6c460f5ed6c7dc7d73b10523012f34e694cb2f[m
+Merge: 84a01cc cec24d9
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Mon Dec 18 20:06:00 2023 -0500
+
+    Merge branch 'main' of https://github.com/4bdulWadood/Capstone
+
+[33mcommit cec24d93ae6aea52a238eb8260e567d73f3fff9d[m
+Author: 4bdulWadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Sat Dec 9 02:47:27 2023 -0500
+
+    Integrated AI - driven task complexity analysis feature
+    
+    Using Natural Language Processing and Data Processing techniques an algorithm was developed to provide the admin with suggestions on potential employees to assign tasks to that have relevant experience or a lower relative workload.
+
+[33mcommit f7786dd394e4362b3e0d6319d8e29da074924e99[m
+Author: Syed Wadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Mon Dec 4 07:42:27 2023 -0500
+
+    Update README.md
+
+[33mcommit 84a01cc9e48156091b97ecbe309ed002edf0c2d3[m
+Merge: 4ff37ac 3bde0ea
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Wed Nov 29 12:25:55 2023 -0500
+
+    Merge branch 'main' of https://github.com/4bdulWadood/Capstone
+
+[33mcommit 3bde0ead3fe3fcc276f71be1db4d78bf33cd8bc1[m
+Author: 4bdulWadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Wed Nov 29 04:18:15 2023 -0500
+
+    Backend, Database, Local Auth.
+
+[33mcommit 4ff37ac118031899b0841c7880ce2aff6b7fdb8c[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Tue Nov 28 19:03:19 2023 -0500
+
+    Update LoginScreen.js
+
+[33mcommit bea3ff0a3ed6e35c89116965f5db3ba7a9a12303[m
+Author: Vishnuhan <vishnu1456@hotmail.com>
+Date:   Tue Nov 28 18:56:03 2023 -0500
+
+    PMPage styling
+
+[33mcommit faab102267dbe440e1dc3853d61686a2775435f5[m
+Author: 4bdulWadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Sun Nov 26 23:34:15 2023 -0500
+
+    Registration Required
+
+[33mcommit ffceb1517c52f1b7dbf8347b14c54e13358a68da[m
+Author: 4bdulWadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Sun Nov 26 19:17:53 2023 -0500
+
+    basic update
+
+[33mcommit fc3a373b624ff44ba97e063d61007dc347ccaff8[m
+Author: 4bdulWadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Sun Nov 26 03:08:27 2023 -0500
+
+    Added central server backend and App Integration
+
+[33mcommit b0479f410b1533cfc81f20320aeac9071ffcf35b[m
+Author: 4bdulWadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Sun Nov 26 02:15:52 2023 -0500
+
+    Fixed BookRoomPage Bug
+
+[33mcommit 05a1ff24edefdf5e40f600072f1414069661ff85[m
+Author: IshanParikhCodeBase <145494113+IshanParikhCodeBase@users.noreply.github.com>
+Date:   Fri Nov 24 14:18:58 2023 -0500
+
+    First Commit
+
+[33mcommit e5558306692ed822ca665a22c3950882f2ac01e6[m
+Author: Syed Wadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Sat Nov 18 15:00:19 2023 -0500
+
+    Update firebase.js
+
+[33mcommit fd77724b145bc8be7665c7d8f726b66ac335d364[m
+Author: 4bdulWadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Sat Nov 18 14:45:32 2023 -0500
+
+    Main Branch
+
+[33mcommit c48ef1860a3e1e6381bc99cd42cc83325a8aa552[m
+Author: 4bdulWadood <57127141+4bdulWadood@users.noreply.github.com>
+Date:   Sat Nov 18 14:37:57 2023 -0500
+
+    Initial commit

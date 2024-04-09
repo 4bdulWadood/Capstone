@@ -10,7 +10,8 @@ const AddNotification = () => {
   const [time, setTime] = useState('');
   const [employees, setEmployees] = useState('');
   const navigation = useNavigation();
-  
+  const url = 'https://capstone-cmml.onrender.com'
+
   const handleAddNotification = async () => {
    
     if (!title || !message || !employees || !time) {
@@ -27,7 +28,7 @@ const AddNotification = () => {
         createdAt: time,
       };
 
-      await axios.post('http://localhost:3001/auth/addnotifications', notificationData);
+      await axios.post(`${url}/auth/addnotifications`, notificationData);
       console.log('Notification sent successfully!')
       navigation.navigate('NotificationBar')
     } catch (error) {

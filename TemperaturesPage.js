@@ -11,9 +11,11 @@ const TemperaturesPage = ({ route }) => {
     getTemperature();
   }, []);
 
+  const url = 'https://capstone-cmml.onrender.com'
+
   const getTemperature = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/auth/temperature");
+      const response = await axios.get(`${url}/auth/temperature`);
       setTempValue(response.data);
       if (response.data >= 15) {
         setTempColor("hot");
@@ -47,7 +49,7 @@ const TemperaturesPage = ({ route }) => {
 
   const saveTemp = async (currentTemp) => {
     try {
-      const response = await axios.post("http://localhost:3001/auth/savetemperature", { temperature: currentTemp });
+      const response = await axios.post(`${url}/savetemperature`, { temperature: currentTemp });
       setTempValue(response.data.temperature);
     } catch (error) {
       console.error(`Error saving temperature: ${error}`);
@@ -64,16 +66,16 @@ const TemperaturesPage = ({ route }) => {
       {empid === "admin" && (
         <>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={increaseTemp}>
-              <Text>+</Text>
+            <TouchableOpacity style={[styles.circularButton, { backgroundColor: 'white' }]} onPress={increaseTemp}>
+              <Text style={styles.buttonText}>+</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={decreaseTemp}>
-              <Text>-</Text>
+            <TouchableOpacity style={[styles.circularButton, { backgroundColor: 'white' }]} onPress={decreaseTemp}>
+              <Text style={styles.buttonText}>-</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => saveTemp(tempValue)}>
-              <Text>Maintain</Text>
+            <TouchableOpacity style={[styles.button, { backgroundColor: 'white' }]} onPress={() => saveTemp(tempValue)}>
+              <Text style={[styles.buttonText, styles.maintainButton]}>Maintain</Text>
             </TouchableOpacity>
           </View>
         </>
@@ -108,10 +110,40 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
+    marginTop: 30, // Adjust the margin top to control the spacing between button containers
   },
   button: {
-    padding: 20,
-    margin: 20,
+    paddingVertical: 10, // Adjust padding to make the buttons bigger
+    paddingHorizontal: 20,
+    marginHorizontal: 20, // Adjust horizontal margin for better spacing between buttons
+    borderWidth: 2,
+    borderColor: '#a832ff', // Neon-ish purple border color
+    shadowColor: '#a832ff', // Neon-ish purple shadow color
+    shadowOffset: { width: 0, height: 3 }, // Adjust shadow offset
+    shadowOpacity: 0.5, // Adjust shadow opacity
+    shadowRadius: 5, // Adjust shadow radius
+    elevation: 5,
+    borderRadius: 20
+  },
+  circularButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 60, // Make the circular button width and height same
+    height: 60,
+    borderRadius: 30, // Make border radius half of the width and height to make it circular
+    borderWidth: 2,
+    borderColor: '#a832ff', // Neon-ish purple border color
+    shadowColor: '#a832ff', // Neon-ish purple shadow color
+    shadowOffset: { width: 0, height: 3 }, // Adjust shadow offset
+    shadowOpacity: 0.5, // Adjust shadow opacity
+    shadowRadius: 5, // Adjust shadow radius
+    elevation: 5, // Android elevation for shadow effect
+    marginHorizontal: 20,
+  },
+
+  buttonText: {
+    fontSize: 24, // Adjust the font size for the button text
+    fontWeight: 'bold'
   },
   cold: {
     shadowColor: "#3737CD",
@@ -125,7 +157,9 @@ const styles = StyleSheet.create({
     shadowRadius: 75,
     shadowOpacity: 1,
   },
+  maintainButton: {
+    fontSize: 20, // Adjust the font size for the Maintain button text
+  },
 });
 
 export default TemperaturesPage;
-

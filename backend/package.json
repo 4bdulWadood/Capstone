@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend server for your application",
+  "main": "server.js", 
+  "scripts": {
+    "start": "node server.js" 
+  },
+  "keywords": [
+    "backend",
+    "express" 
+  ],
+  "author": "Your Name",
+  "license": "MIT", 
+  "dependencies": {
+    "express": "^4.17.1" 
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/backend/issues" 
+  },
+  "homepage": "https://yourwebsite.com" 
+}

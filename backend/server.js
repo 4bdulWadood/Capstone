@@ -168,26 +168,82 @@ projectRoutes.post('/addtasktoproject', async (req, res) => {
   }
 });
 
+
+//Get Project Status 
+//Inputs project name, planning
+//Outputs percentage completed
+
+//Get Phase Status
+//Inputs phase name, project name 
+//Outputs percentage completed
+
+//Get Project Information
+
+// Define a new route to get project data by name
+projectRoutes.get('/project/:name', async (req, res) => {
+  const projectName = req.params.name; // Get the project name from request params
+
+  try {
+    // Find the project by name
+    const foundProject = await Project.findOne({ Name: projectName });
+
+    if (!foundProject) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    // Return the project data
+    res.status(200).json(foundProject);
+
+  } catch (error) {
+    console.error('Error retrieving project data:', error);
+    res.status(500).json({ message: 'Error retrieving project data from the database' });
+  }
+});
+
+projectRoutes.post('/tasktogglestatus', async (req, res) => {
+  const { project, taskName } = req.body; // Destructure required fields from request body
+  console.log("in the tasktogglestatus server.js")
+  try {
+    // Find the project by name
+    const foundProject = await Project.findOne({ Name: project });
+    
+    if (!foundProject) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+    
+    // Locate the task to be updated
+    const taskToUpdate = foundProject.Tasks.find(task => task.taskName === taskName);
+    if (!taskToUpdate) {
+      return res.status(404).json({ message: 'Task not found in the project' });
+    }
+
+    res.status(200).json({ message: taskToUpdate["taskComplete"] });
+
+  } catch (error) {
+    console.error('Error updating task completion status:', error);
+    res.status(500).json({ message: 'Error updating task completion status in the database' });
+  }
+});
+
 projectRoutes.post('/tasktoggle', async (req, res) => {
   const { project, taskName, taskComplete } = req.body; // Destructure required fields from request body
   console.log("in the tasktoggle server.js")
   try {
     // Find the project by name
     const foundProject = await Project.findOne({ Name: project });
-
+    console.log(project)
     if (!foundProject) {
       return res.status(404).json({ message: 'Project not found' });
     }
-
+    
     // Locate the task to be updated
     const taskToUpdate = foundProject.Tasks.find(task => task.taskName === taskName);
-
     if (!taskToUpdate) {
       return res.status(404).json({ message: 'Task not found in the project' });
     }
 
     // Update the taskComplete status of the found task
-    taskToUpdate.taskComplete = taskComplete;
+    taskToUpdate["taskComplete"] = taskComplete;
 
     // Save the updated project back to the database
     const updatedProject = await foundProject.save();
@@ -291,9 +347,9 @@ projectRoutes.get('/assignedprojects', async (req, res) => {
 
 projectRoutes.get('/projects', async (req, res) => {
   try {
-    // Fetch all projects from MongoDB
     const projects = await Project.find();
     res.json(projects);
+    console.log(projects);
   } catch (err) {
     console.error(err);
     return res.status(500).send('An error occurred while fetching projects.');
@@ -509,8 +565,7 @@ app.use('/auth', notiRoutes);
 app.use('/auth', tempRoutes);
 
 
-// Listen on all network interfaces
-const PORT = 3001;
-app.listen(PORT, '0.0.0.0', () => {
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

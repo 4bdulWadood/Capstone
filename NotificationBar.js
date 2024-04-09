@@ -11,11 +11,12 @@ const NotificationBar = ({ route }) => {
   const [notifications, setNotifications] = useState([]);
   const { employeeId } = route.params;
   const navigation = useNavigation();
+  const url = 'https://capstone-cmml.onrender.com'
 
   // Function to fetch notifications
   const fetchNotifications = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/auth/notifications?employeeID=${employeeId}`);
+      const response = await axios.get(`${url}/auth/notifications?employeeID=${employeeId}`);
       setNotifications(response.data); // Update notifications state with fetched data
     } catch (error) {
       console.error('Error fetching notifications:', error);
@@ -30,7 +31,7 @@ const NotificationBar = ({ route }) => {
   // Function to mark a notification as read
   const markAsRead = async (notificationTitle) => {
     try {
-      await axios.patch(`http://localhost:3001/auth/notifications/read?title=${notificationTitle}&employeeID=${employeeId}`);
+      await axios.patch(`${url}/auth/notifications/read?title=${notificationTitle}&employeeID=${employeeId}`);
       // Immediately reflect the change in the UI
       setNotifications(notifications.map(n =>
         n.title === notificationTitle && !n.readBy.includes(employeeId)
@@ -45,7 +46,7 @@ const NotificationBar = ({ route }) => {
   // Function to delete a notification
   const deleteNotification = async (notificationTitle) => {
     try {
-      await axios.delete(`http://localhost:3001/auth/notifications/delete?title=${notificationTitle}`);
+      await axios.delete(`${url}/auth/notifications/delete?title=${notificationTitle}`);
       // Immediately reflect the change in the UI
       setNotifications(notifications.filter(n => n.title !== notificationTitle));
     } catch (error) {
