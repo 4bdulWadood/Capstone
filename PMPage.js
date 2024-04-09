@@ -123,7 +123,8 @@ const TasksPage = ({ route }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/auth/projects');
+        const response = await axios.get('http://18.216.105.223:3001/auth/projects');
+        // const response = await axios.get('http://localhost:3001/auth/projects');
         const project = response.data.find((p) => p.Name === projectName);
 
         if (project) {
@@ -145,8 +146,8 @@ const TasksPage = ({ route }) => {
     }
 
     try {
-      const response = await axios.get('http://localhost:3001/auth/users');
-      const user_Data = await axios.post('http://localhost:3001/auth/get-suggestions.py', {
+      const response = await axios.get('http://18.216.105.223:3001/auth/users');
+      const user_Data = await axios.post('http://18.216.105.223/auth/get-suggestions.py', {
         user_data: response.data,
         new_task_name: newTaskName,
       });
@@ -194,10 +195,10 @@ const TasksPage = ({ route }) => {
     try {
       // Make the API call to submit the task details
       // Adjust the URL and request payload according to your backend API
-       await axios.post('http://localhost:3001/auth/addtask', taskDetails);
+       await axios.post('http://18.216.105.223:3001/auth/addtask', taskDetails);
        console.log('Task successfully added with employees');
 
-      await axios.post('http://localhost:3001/auth/addtasktoproject', taskDetails);
+      await axios.post('http://18.216.105.223:3001/auth/addtasktoproject', taskDetails);
       console.log('Task successfully added to project data');
   
       // Handle any post-save actions, like closing the modal or clearing the form
@@ -420,8 +421,8 @@ const AllScreen = ({route}) => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/auth/assignedprojects?employeeName=${employeeName}`);
-      // const response =  await axios.get(`http://localhost:3001/auth/projects`)
+      //const response = await axios.get(`http://18.216.105.223:3001/auth/assignedprojects?employeeName=${employeeName}`);
+       const response =  await axios.get(`http://localhost:3001/auth/projects`)
       setProjects(response.data);
       console.log(response.data)
     } catch (error) {
@@ -461,8 +462,8 @@ const OngoingScreen = ({route}) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/auth/assignedprojects?employeeName=${employeeName}`);
-        // const response =  await axios.get(`http://localhost:3001/auth/projects`)
+        //const response = await axios.get(`http://18.216.105.223:3001/auth/assignedprojects?employeeName=${employeeName}`);
+        const response =  await axios.get(`http://localhost:3001/auth/projects`)
       setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -496,7 +497,7 @@ const CompletedScreen = ({route}) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-       const response = await axios.get(`http://localhost:3001/auth/assignedprojects?employeeName=${employeeName}`);
+       const response = await axios.get(`http://18.216.105.223:3001/auth/assignedprojects?employeeName=${employeeName}`);
      
       setProjects(response.data);
       } catch (error) {

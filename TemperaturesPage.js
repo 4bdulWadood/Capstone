@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
-import './TemperaturesPage.css';
 
-export default function TemperaturesPage({ route }) {
+const TemperaturesPage = ({ route }) => {
   const [tempValue, setTempValue] = useState(10);
   const [tempColor, setTempColor] = useState("cold");
-  const empid = route.params.employeeId
-
-  console.log('temp',empid)
+  const empid = route.params.employeeId;
 
   useEffect(() => {
     getTemperature();
@@ -15,7 +13,7 @@ export default function TemperaturesPage({ route }) {
 
   const getTemperature = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/auth/temperature`);
+      const response = await axios.get("http://localhost:3001/auth/temperature");
       setTempValue(response.data);
       if (response.data >= 15) {
         setTempColor("hot");
@@ -49,7 +47,7 @@ export default function TemperaturesPage({ route }) {
 
   const saveTemp = async (currentTemp) => {
     try {
-      const response = await axios.post(`http://localhost:3001/auth/savetemperature`, { temperature: currentTemp });
+      const response = await axios.post("http://localhost:3001/auth/savetemperature", { temperature: currentTemp });
       setTempValue(response.data.temperature);
     } catch (error) {
       console.error(`Error saving temperature: ${error}`);
@@ -57,21 +55,77 @@ export default function TemperaturesPage({ route }) {
   };
 
   return (
-    <div className="app-container">
-      <div className="temperature-display-container">
-        <div className={`temperature-display ${tempColor}`}>{tempValue}</div>
-      </div>
-      {empid === 'admin' && (
+    <View style={styles.appContainer}>
+      <View style={styles.temperatureDisplayContainer}>
+        <View style={[styles.temperatureDisplay, tempColor === "hot" ? styles.hot : styles.cold]}>
+          <Text style={styles.temperatureText}>{tempValue}</Text>
+        </View>
+      </View>
+      {empid === "admin" && (
         <>
-          <div className="button-container">
-            <button onClick={increaseTemp}>+</button>
-            <button onClick={decreaseTemp}>-</button>
-          </div>
-          <div className="button-container">
-            <button onClick={() => saveTemp(tempValue)}>Maintain</button>
-          </div>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={increaseTemp}>
+              <Text>+</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={decreaseTemp}>
+              <Text>-</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => saveTemp(tempValue)}>
+              <Text>Maintain</Text>
+            </TouchableOpacity>
+          </View>
         </>
       )}
-    </div>
+    </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  appContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  temperatureDisplayContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  temperatureDisplay: {
+    borderRadius: 110,
+    height: 220,
+    width: 220,
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 48,
+    color: "#04040A",
+  },
+  temperatureText: {
+    fontSize: 48,
+    color: "#04040A",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  button: {
+    padding: 20,
+    margin: 20,
+  },
+  cold: {
+    shadowColor: "#3737CD",
+    shadowOffset: { width: 5, height: 10 },
+    shadowRadius: 75,
+    shadowOpacity: 1,
+  },
+  hot: {
+    shadowColor: "#ff0000",
+    shadowOffset: { width: 5, height: 10 },
+    shadowRadius: 75,
+    shadowOpacity: 1,
+  },
+});
+
+export default TemperaturesPage;
+

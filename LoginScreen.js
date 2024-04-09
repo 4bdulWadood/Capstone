@@ -22,8 +22,8 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       const loginData = { employeeId, password };
-      //const response = await axios.post('http://18.216.74.246:3001/auth/login', loginData);
-      const response = await axios.post('http://localhost:3001/auth/login', loginData);
+     // const response = await axios.post('http://18.216.105.223:3001/auth/login', loginData);
+     const response = await axios.post('http://localhost:3001/auth/login', loginData);
 
       if (employeeId === 'admin' && password === 'admin') {
         navigation.navigate('Account', { employeeID: employeeId });
