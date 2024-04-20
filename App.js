@@ -12,6 +12,8 @@ import OnboardingScreen from './OnboardScreen'; // Import the OnboardingScreen c
 import AccountPage from './AccountPage';
 import AddProject from './AddProjectPage';
 import AddNotification from './AddNotification';
+import MeetingRoom from './MeetingRoom';
+import NewMeetingScreen from './NewMeetingScreen';
 
 
 const Stack = createStackNavigator();
@@ -20,7 +22,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Onboarding"
           component={OnboardingScreen}
@@ -48,7 +50,7 @@ const App = () => {
         <Stack.Screen
           name="PMPage"
           component={PMPage}
-          options={{ headerShown: false }}
+          options={{ headerShown: true }}
         />
 
         <Stack.Screen
@@ -75,6 +77,17 @@ const App = () => {
           options={{ headerShown: true }}
         />  
         
+        <Stack.Screen
+          name="NewRoom"
+          component={MeetingRoom}
+          options={{ headerShown: true }}
+        />
+      <Stack.Screen
+          name="NewMeetingScreen"
+          component={NewMeetingScreen}
+          options={{ headerShown: true }}
+        />
+
 
       </Stack.Navigator>
     </NavigationContainer>

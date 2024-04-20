@@ -5,6 +5,7 @@ import PMPage from './PMPage';
 import BookRoomPage from './BookRoomPage';
 import AccountPage from './AccountPage';
 import TemperaturesPage from './TemperaturesPage'; // Import TemperaturesPage
+import MeetingRoom from './MeetingRoom';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +17,7 @@ const BottomTabNavigator = ({ route }) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: '#3498db',
+        activeTintColor: '#a832ff',
         inactiveTintColor: 'gray',
         labelStyle: {
           fontSize: 14,
@@ -35,13 +36,22 @@ const BottomTabNavigator = ({ route }) => {
           tabBarIcon: ({ color, size }) => <Icon name="track-changes" size={size} color={color} />,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Book a Room"
         component={BookRoomPage}
         options={{
           tabBarIcon: ({ color, size }) => <Icon name="event-available" size={size} color={color} />,
         }}
+      /> */}
+
+    <Tab.Screen
+        name="Book a Room"
+        component={MeetingRoom}
+        options={{
+          tabBarIcon: ({ color, size }) => <Icon name="event-available" size={size} color={color} />,
+        }}
       />
+
       <Tab.Screen
         name="Temperatures" // New screen name for TemperaturesPage
         component={TemperaturesPage} // Link to TemperaturesPage component

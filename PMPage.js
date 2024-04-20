@@ -21,8 +21,11 @@ import AddProjectPage from './AddProjectPage'; // Adjust the import path as need
 import TaskToggle from './TaskToggle'; // Import the TaskToggle component
 import NotificationBar from './NotificationBar';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useFocusEffect } from '@react-navigation/native';
 
-const API_URL = 'https://capstone-cmml.onrender.com'; // Define your API URL here
+
+// const API_URL = 'https://capstone-cmml.onrender.com'; // Define your API URL here
+const API_URL = 'http://localhost:3001'; // Define your API URL here
 
 
 
@@ -56,17 +59,32 @@ const renderPhaseCard = (navigation, phase, projectName, project) => {
     percentage = 0;
   }
 
-  return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Tasks', { phase, projectName })}
-      >
-        <View style={styles.projectCard}>
-            <Text style={styles.cardTitle}>{phase.name}</Text>
-            <Text style={styles.cardText}>{percentage}% Completed</Text>
+//   return (
+//     <TouchableOpacity onPress={() => navigation.navigate('Tasks', { phase, projectName })}>
+//       <View style={styles.phaseCard}>
+//         <Text style={styles.cardTitle}>{phase.name}</Text>
+//         <Text style={styles.cardPercentage}>{`${percentage}% Completed`}</Text>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// };
+
+return (
+  <TouchableOpacity onPress={() => navigation.navigate('Tasks', { phase, projectName })}>
+    <View style={styles.phaseCardContainer}>
+      <View style={styles.phaseCard}>
+        <Text style={styles.cardTitle}>{phase.name}</Text>
+        <View style={styles.progressBarBackground}>
+          <View style={[styles.progressBar, { width: `${percentage}%` }]} />
         </View>
-      </TouchableOpacity>
-  )
-} 
+        <Text style={styles.cardPercentage}>{`${percentage}% Completed`}</Text>
+      </View>
+    </View>
+  </TouchableOpacity>
+);
+};
+
+
 
 const PMPage = ({ route }) => {
   const { employeeId, employeeName} = route.params;
@@ -109,26 +127,26 @@ const PMPage = ({ route }) => {
 
 
 const renderTaskCard = (task, projectName) => {
-  // If you need to log the task, do it inside the function body before the return statement.
-  console.log('task', task);
 
-  return (
-    <View style={styles.taskCard}>
-      <Text style={styles.taskName}>Task Name: {task.taskName}</Text>
-      <Text style={styles.phase}>Phase: {task.taskPhase}</Text>
-      
-      {/* Include the TaskToggle component here */}
-      <TaskToggle project={projectName} taskName={task.taskName} taskComplete={task.taskComplete} />
-
-      <Text style={styles.completionStatus}>
-        Completion Status: {task.taskComplete ? 'Complete' : 'Incomplete'}
-      </Text>
-      <Text style={styles.employees}>
-        Employees: {task.employees ? task.employees.join(', ') : 'None'}
-      </Text>
+return (
+  <TouchableOpacity onPress={() => {/* handle task card press */}}>
+    <View style={styles.phaseCardContainer}>
+      <View style={styles.phaseCard}>
+        <Text style={styles.cardTitle}>{task.taskName}</Text>
+        <Text style={styles.phase}>{`Phase: ${task.taskPhase}`}</Text>
+        {/* Include the TaskToggle component here */}
+        
+        <TaskToggle project={projectName} taskName={task.taskName} taskComplete={task.taskComplete} />
+        
+        <Text style={styles.employees}>
+          Employees: {task.employees ? task.employees.join(', ') : 'None'}
+        </Text>
+      </View>
     </View>
-  );
+  </TouchableOpacity>
+);
 };
+
 
 const TasksPage = ({ route }) => {
   const { phase, projectName, employeeId } = route.params;
@@ -266,8 +284,10 @@ const TasksPage = ({ route }) => {
   return (
     <View>
       <View style={styles.header}>
-        {/* <Text style={styles.mytext}>{phase.name}</Text> */}
-        <Text style={styles.mytext}>{projectName}</Text>
+      <View>
+  <Text style={styles.projectCardTitle}>{projectName}</Text>
+</View>
+   
           {employeeId === 'admin' && (
           <TouchableOpacity onPress={handleAddTask} style={styles.addButton}>
             <Text style={styles.addButtonText}>Add Task</Text>
@@ -394,25 +414,36 @@ const renderProjectCard = (navigation, project) => {
     color = '#f1c40f'; // Yellow color for 35% to 70%
   }
 
-  return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('ProjectDetails', { project, navigation })}
-    >
-      <View style={styles.projectCard}>
-        <View style={styles.leftContent}>
-          <Text style={styles.cardTitle}>{project.Name}</Text>
-          <Text style={styles.duedate}>Due Date: {project.Due_Date}</Text>
-          {/* <Text style={styles.cardText}>Tasks: {project.Tasks ? project.Tasks.join(', ') : 'N/A'}</Text> */}
-          <Text style={styles.cardText}>{teamText}</Text>
-        </View>
-        <View style={styles.separator}></View>
-        <View style={styles.rightContent}>
-          <Text style={styles.percentText}>Percentage: {percentage}%</Text>
-          <CircularProgress thickness='8'  variant="determinate" value={percentage} color="secondary"/>
-        </View>
-      </View> 
-    </TouchableOpacity>
-  );
+return (
+  <TouchableOpacity
+    onPress={() => navigation.navigate('ProjectDetails', { project, navigation })}
+    style={styles.projectCard}
+  >
+    <View style={styles.leftContent}>
+      <Text style={styles.projectTitle}>{project.Name}</Text>
+      <Text style={styles.projectSubtitle}>Agile Development</Text>
+      <View style={styles.dueDate}>
+        <Icon name="event" size={12} style={styles.dueDateIcon} />
+        <Text style={styles.dueDateText}>Due {project.Due_Date}</Text>
+      </View>
+      <View style={styles.taskCounter}>
+        <Icon name="list" size={12} style={styles.taskIcon} />
+        <Text style={styles.taskCounterText}>{project.Tasks.length} Tasks</Text>
+      </View>
+    </View>
+    <View style={styles.rightContent}>
+      <CircularProgress
+        variant="determinate"
+        value={percentage}
+        color="secondary"
+        thickness={5}
+        size={80} // Adjust size based on your layout
+        style={styles.progressCircle}
+      />
+      <Text style={styles.percentageText}>{`${percentage}%`}</Text>
+    </View>
+  </TouchableOpacity>
+);
 };
 
 
@@ -420,7 +451,6 @@ const renderProjectCard = (navigation, project) => {
 const ProjectDetailsScreen = ({ route }) => {
   const { project, navigation } = route.params;
   
-
   const chartConfig = {
     backgroundGradientFrom: "#fff",
     backgroundGradientTo: "#fff",
@@ -431,6 +461,10 @@ const ProjectDetailsScreen = ({ route }) => {
     barStyle: {
       borderRadius: 10, // Additional styling for the bars, if needed
     },
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientToOpacity: 0,
+    fillShadowGradient: '#a832ff', // Or any other color you use in your app
+    fillShadowGradientOpacity: 1,
     formatYLabel: label => label + '%',
   };
   
@@ -486,8 +520,9 @@ const ProjectDetailsScreen = ({ route }) => {
           yAxisLabel=""
           chartConfig={chartConfig}
           verticalLabelRotation={0}
-          style={styles.chart}
+          style={styles.chartStyle}
         />
+         
       </View>
     </ScrollView>
   );
@@ -510,19 +545,24 @@ const AllScreen = ({route}) => {
     }
   };
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  // useEffect(() => {
+  //   fetchProjects();
+  // }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchProjects();
+      // The empty array ensures this effect runs only once upon focusing
+    }, [])
+  );
 
-  console.log(projects)
 
   return (
     <ScrollView>
       <View>
-        <Text style={styles.mytext}>All Projects</Text>
-        <TouchableOpacity onPress={fetchProjects} style={{ alignSelf: 'flex-end', marginTop: -10 }}>
+        {/* <Text style={styles.mytext}>All Projects</Text> */}
+        {/* <TouchableOpacity onPress={fetchProjects} style={{ alignSelf: 'flex-end', marginTop: -10 }}>
           <Icon name="refresh" size={20} color='#a832ff' style={{ marginRight: 20, marginTop: -20, marginBottom: 5 }} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <FlatList
           style={{ flex: 1 }}
@@ -556,7 +596,7 @@ const OngoingScreen = ({ route }) => {
   return (
     <ScrollView>
       <View>
-        <Text style={styles.mytext}>Ongoing Projects</Text>
+        {/* <Text style={styles.mytext}>Ongoing Projects</Text> */}
         <FlatList
           data={projects}
           keyExtractor={(item) => item.Name}
@@ -588,7 +628,7 @@ const CompletedScreen = ({ route }) => {
   return (
     <ScrollView>
       <View>
-        <Text style={styles.mytext}>Completed Projects</Text>
+        {/* <Text style={styles.mytext}>Completed Projects</Text> */}
         <FlatList
           data={projects}
           keyExtractor={(item) => item.Name}
@@ -611,10 +651,96 @@ const PMTopTabNavigator = ({ route }) => {
   );
 };
 const styles = StyleSheet.create({
-  // ... your existing styles
+  projectCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    padding: 20,
+    marginVertical: 12,
+    marginHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  projectCardTitle: {
+    backgroundColor: '#F0EBE3',
+    borderRadius: 20,
+    padding: 15,
+    marginVertical: 8,
+    marginLeft: 2,
+    marginRight: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    fontWeight: 'bold'
+  },
+  leftContent: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  rightContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  projectTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 4,
+    color: '#333',
+  },
+  projectSubtitle: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 16,
+  },
+  dueDate: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  dueDateIcon: {
+    marginRight: 8,
+    color: '#666',
+  },
+  dueDateText: {
+    fontSize: 12,
+    color: '#666',
+  },
+  taskCounter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  taskIcon: {
+    marginRight: 8,
+    color: '#666',
+  },
+  taskCounterText: {
+    fontSize: 12,
+    color: '#666',
+  },
+  percentageText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#333',
+    position: 'absolute',
+    textAlign: 'center',
+  },
   phaseCardContainer: {
     backgroundColor: '#111',
-    borderRadius: 8,
+    borderRadius: 20,
     margin: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -622,15 +748,11 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
     flex: 1,
+    marginVertical: 8,
+    marginHorizontal: 16,
+
   },
-  phaseCard: {
-    padding: 16,
-  },
-  // phaseTitle: {
-  //   fontSize: 18,
-  //   fontWeight: 'bold',
-  //   marginBottom: 8,
-  // },
+ 
   phaseText: {
     fontSize: 16,
     color: '#555',
@@ -659,26 +781,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#2ecc71',
   },
-  projectCard: {
-    backgroundColor: 'white',
-    padding: 10,
-    margin: 5,
-    marginLeft: 2,
-    borderRadius: 10,
-    borderWidth: 3,
-    borderColor: '#a832ff', // Neon-ish purple border color
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
   
-  
-  cardTitle: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    fontFamily: 'sans-serif'
-  },
+  // cardTitle: {
+  //   fontSize: 15,
+  //   fontWeight: 'bold',
+  //   marginBottom: 8,
+  //   fontFamily: 'sans-serif'
+  // },
   cardText: {
     fontSize: 14,
     fontFamily: 'sans-serif',
@@ -696,8 +805,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
   },
   addButton: {
-    backgroundColor: '#3498db',
-    padding: 10,
+    backgroundColor: '#a832ff',
+    padding: 7,
     borderRadius: 5,
   },
   updateButton: {
@@ -809,9 +918,10 @@ const styles = StyleSheet.create({
 
   mytext: {
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 20,
     margin: 5,
-    marginRight: 5
+    marginRight: 5,
+    marginLeft: 22,
   },
 
   // Add the new styles
@@ -821,28 +931,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
   },
-  addButton: {
-    backgroundColor: '#3498db',
-    padding: 10,
-    borderRadius: 5,
-  },
-  addButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  phaseCardContainer: {
-    padding: 10,
-  },
-  phaseCard: {
-    backgroundColor: '#ecf0f1',
-    padding: 20,
-    borderRadius: 10,
-  },
-  phaseTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    fontFamily: 'AvenirNext-BoldItalic'
-  },
+ 
+
+ 
+
   phaseText: {
     marginTop: 10,
     color: '#3498db',
@@ -910,6 +1002,7 @@ const styles = StyleSheet.create({
     borderRadius: 20, // Add border radius
     borderWidth: 2, // Add border width if needed
     borderColor: '#000', // Add border color if needed
+    
   },
   
   leftContent: {
@@ -948,9 +1041,95 @@ const styles = StyleSheet.create({
     color: '#FF5C5C',
     fontWeight: 'bold',
     marginBottom: 8,
+  },
+
+  // phaseCard: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'center',
+  //   backgroundColor: 'white',
+  //   borderRadius: 20,
+  //   padding: 20,
+  //   marginVertical: 8,
+  //   marginHorizontal: 16,
+  //   shadowColor: '#000',
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.1,
+  //   shadowRadius: 2,
+  //   elevation: 3,
+  // },
+  phaseCard: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 20,
+    // shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  cardPercentage: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'right',
+  },
+  chartStyle: {
+    borderRadius: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 3,
+    marginTop: 12
+  },
+  progressBarContainer: {
+    height: 10,
+    width: '100%',
+    backgroundColor: '#e0e0e0',
+    borderRadius: 5,
+    marginTop: 5,
+    overflow: 'hidden',
+  },
+  progressBarBackground: {
+    height: 10,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 5,
+    overflow: 'hidden',
+    // This will ensure the progressBar doesn't go outside the bounds of the card
+    marginVertical: 10, // Add some vertical margin if you want space around the bar
+  },
+  progressBar: {
+    height: '100%',
+    backgroundColor: '#a832ff',
+    borderRadius: 5, // Optional if you want the bar to have rounded corners
+  },
+  cardDetailText: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 5,
+  },
+  // container: {
+  //   flex: 1,
+  //   alignItems: 'center', // Center items horizontally in the container
+  //   justifyContent: 'flex-start', // Align items to the top of the container
+  //   paddingTop: 20, // Space from the top of the container
+  //   backgroundColor: '#FFFFFF', // Background color of the overall screen
+  // },
+
+  // same color theme
+  progressCircle:{
+    color: '#a832ff'
   }
-  
 
 });
+
+
 
 export default PMPage;

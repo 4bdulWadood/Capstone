@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Platform, TextInput, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
 import { Button, Card, Title, IconButton } from 'react-native-paper';
 
-const COLORS = {
-  primary: '#007aff',
-  background: '#fff',
-  text: '#222',
-  error: 'red',
-};
 
 const RegisterScreen = ({ navigation }) => {
   const [employeeName, setEmployeeName] = useState('');
   const [employeeId, setEmployeeId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const url = 'https://capstone-cmml.onrender.com'
+  // const url = 'https://capstone-cmml.onrender.com'
+  const url = 'http://localhost:3001'
 
   const handleHome = () => {
     navigation.navigate('Home');
@@ -35,49 +30,54 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Icon added above the Card */}
-      <IconButton
-        icon="account-check-outline"
-        color={COLORS.primary}
-        size={70}
-        onPress={() => console.log('Icon pressed')}
-        style={styles.icon}
+      <Image
+        source={require('./images/desk-synergy1.png')} // Adjust the path based on your project structure
+        style={styles.logo}
       />
-
-      <Card style={styles.card}>
-        <Card.Content>
-          <Text style={styles.title}>Registration</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Employee Name"
-            value={employeeName}
-            onChangeText={(text) => setEmployeeName(text)}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Employee ID"
-            value={employeeId}
-            onChangeText={(text) => setEmployeeId(text)}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          />
-          <TouchableOpacity style={styles.btn} onPress={handleRegister}>
-            <Text style={styles.btnText}>Register</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn} onPress={handleHome}>
-            <Text style={styles.btnText}>Home</Text>
-          </TouchableOpacity>
-          {error !== '' && <Text style={styles.errorMessage}>{error}</Text>}
-        </Card.Content>
-      </Card>
+      <Text style={styles.title}>Create Account</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Full Name"
+        value={employeeName}
+        onChangeText={setEmployeeName}
+        placeholderTextColor="#6b7280"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Employee ID"
+        value={employeeId}
+        onChangeText={setEmployeeId}
+        placeholderTextColor="#6b7280"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+        placeholderTextColor="#6b7280"
+      />
+      <TouchableOpacity onPress={handleRegister} style={styles.button}>
+        <Text style={styles.buttonText}>Register</Text>
+      </TouchableOpacity>
+      <Text style={styles.signInText}>
+        Already have an account?{' '}
+        <Text onPress={() => navigation.navigate('Login')} style={styles.signInLink}>
+          Sign In
+        </Text>
+      </Text>
+      {error !== '' && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };
+
+// Determine the background style based on the platform
+const backgroundStyle = Platform.select({
+  web: {
+    backgroundImage: 'linear-gradient(180deg, #94B3FD 0%, #B983FF 100%)',
+  },
+  default: {},
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -85,60 +85,53 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#e8ecf4',
-  },
-  icon: {
-    position: 'absolute',
-    top: 30,
-    right: 135,
+    ...backgroundStyle,
   },
   title: {
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: 'bold',
-    alignSelf: 'center',
-    color: COLORS.text,
-    marginBottom: 20,
+    color: '#fff',
+    marginBottom: 30,
   },
   input: {
-    marginBottom: 16,
-    height: 44,
-    width: '100%', // Changed width to 100%
-    backgroundColor: '#f1f5f9',
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    fontSize: 15,
-    fontWeight: '500',
-    color: COLORS.text,
-    borderColor: COLORS.primary,
-    borderBottomWidth: 1,
-  },
-  btn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    width: '80%',
+    padding: 16,
+    marginBottom: 10,
+    borderRadius: 25,
     borderWidth: 1,
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
-    marginBottom: 16,
-    width: '100%', // Changed width to 100%
+    borderColor: '#fff',
+    backgroundColor: '#fff',
+    color: '#000',
+    fontSize: 16,
   },
-  btnText: {
-    fontSize: 17,
-    lineHeight: 24,
-    fontWeight: '600',
-    color: COLORS.background,
+  button: {
+    width: '80%',
+    backgroundColor: '#ffffff',
+    padding: 16,
+    borderRadius: 25,
+    alignItems: 'center',
+    marginBottom: 10,
   },
-  errorMessage: {
-    color: COLORS.error,
+  buttonText: {
+    fontSize: 18,
+    color: '#8E2DE2',
+    fontWeight: 'bold',
+  },
+  signInText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  signInLink: {
+    textDecorationLine: 'underline',
+  },
+  error: {
+    color: 'red',
     marginTop: 10,
   },
-  card: {
-    padding: 5,
-    borderWidth: 3,
-    borderColor: '#a832ff', // Neon-ish purple border color
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
   },
 });
 

@@ -28,15 +28,14 @@ const TaskToggle = ({ project, taskName, taskComplete }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Task Status</Text>
+      <Text style={styles.label}>{isComplete ? 'Status: Complete' : 'Status: Incomplete'}</Text>
       <Switch
-        trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={isComplete ? '#f5dd4b' : '#f4f3f4'}
+        trackColor={{ false: '#FF6B6B', true: '#4ECDC4' }}
+        thumbColor={isComplete ? '#FFFFFF' : '#FFFFFF'}
         ios_backgroundColor="#3e3e3e"
         onValueChange={onToggleSwitch}
         value={isComplete}
       />
-      <Text style={styles.statusText}>{isComplete ? 'Complete' : 'Incomplete'}</Text>
     </View>
   );
 };
@@ -45,10 +44,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 20,
+    justifyContent: 'space-between',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginVertical: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    elevation: 3,
   },
   label: {
-    marginRight: 10,
+    fontWeight: 'bold',
+    color: '#344955',
+    flex: 1,
   },
   statusText: {
     marginLeft: 10,

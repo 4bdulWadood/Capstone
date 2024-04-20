@@ -1,11 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-
-const COLORS = {
-  primary: '#075eec', // Adjusted primary color for consistency
-  background: '#e8ecf4', // Adjusted background color for consistency
-  text: '#1d1d1d', // Adjusted text color for consistency
-};
+import { View, Text, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 
 const Homepage = ({ navigation }) => {
   const handleLoginClick = () => {
@@ -16,65 +10,90 @@ const Homepage = ({ navigation }) => {
     navigation.navigate('Register');
   };
 
+  // Style object for container with gradient background
+  const containerStyle = Platform.select({
+    web: {
+      // For web: use backgroundImage with a horizontal gradient
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+      width: '100%',
+      backgroundImage: 'linear-gradient(#94B3FD, #B983FF)',
+    },
+    default: {
+      // For native: use styles.container which will have LinearGradient component
+      ...styles.container,
+    },
+  });
+
   return (
-    <View style={styles.container}>
+    <View style={containerStyle}>
       <Image
-        source={require('./images/desk-synergy.png')} // Adjust the path based on your project structure
+        source={require('./images/desk-synergy1.png')} // Adjust the path based on your project structure
         style={styles.logo}
       />
-      <Text style={styles.title}>DeskSynergy</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.btn} onPress={handleLoginClick}>
-          <Text style={styles.btnText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btn} onPress={handleRegisterClick}>
-          <Text style={styles.btnText}>Register</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.button} onPress={handleLoginClick}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleRegisterClick}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.background,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.text,
-    marginBottom: 20,
-  },
+  container: Platform.select({
+    web: {
+      // Web-specific gradient styling
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 16,
+      height: '100vh', // Take full height of the viewport
+      background: 'linear-gradient(to right, #94B3FD, #B983FF)',
+    },
+    default: {
+      // Native uses these styles with LinearGradient component
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 16,
+    },
+  }),
   logo: {
     width: 200,
     height: 200,
     marginBottom: 20,
   },
-  buttonContainer: {
+  title: {
+    fontSize: 24,
+    color: '#ffffff',
+    marginBottom: 30,
+    fontWeight: 'bold',
+  },
+  button: {
     width: '80%',
-    marginTop: 20,
-  },
-  btn: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    padding: 15,
+    borderRadius: 25,
     justifyContent: 'center',
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    alignItems: 'center',
+    marginBottom: 15,
     borderWidth: 1,
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
-    marginBottom: 16,
-    width: '100%',
+    borderColor: '#ffffff',
   },
-  btnText: {
-    fontSize: 17,
-    lineHeight: 24,
-    fontWeight: '600',
-    color: '#fff',
+  buttonText: {
+    color: '#8E2DE2',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  guestText: {
+    color: '#ffffff',
+    marginTop: 15,
   },
 });
 

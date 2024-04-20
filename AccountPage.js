@@ -1,47 +1,47 @@
 import React from 'react';
-import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from 'react-native-paper';
 
 const AccountPage = ({route}) => {
   const navigation = useNavigation();
   const {employeeName, employeePic} = route.params;
-  console.log(employeePic)
+  const joinDate = 'January 5, 2020';
+  const lastLogin = 'March 28, 2024, 3:42 PM';
+  const location = 'New York, USA';
 
   const handleLogout = () => {
+    // Logout logic here
     navigation.navigate('Home');
   };
 
-  return (
+   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Account Page</Text>
-
-      <View style={styles.contentContainer}>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>User Information</Text>
-          <Text>Email: {employeeName}@deskSynergy.com</Text>
-          {/* Add more user-related information here */}
-        </View>
-
-        <View style={styles.avatarContainer}>
-          <Avatar.Image
-            size={90}
-            // source={{ uri: 'https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light' }}
-            source={{ uri: employeePic }}
-
-          />
-        </View>
+      <View style={styles.profileHeader}>
+        <Avatar.Image
+          size={80}
+          source={{ uri: employeePic }}
+          style={styles.profilePic}
+        />
+        <Text style={styles.profileName}>{employeeName}</Text>
+        <Text style={styles.profileEmail}>{employeeName}@deskSynergy.com</Text>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Account Actions</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Change Password</Text>
+      <View style={styles.actionsContainer}>
+        <TouchableOpacity style={styles.actionButton} onPress={() => {/* Change password logic */}}>
+          <Text style={styles.actionText}>Change Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Text style={styles.buttonText}>Logout</Text>
+        <TouchableOpacity style={styles.actionButton} onPress={handleLogout}>
+          <Text style={styles.actionText}>Logout</Text>
         </TouchableOpacity>
-        {/* Add more account-related actions here */}
+      </View>
+
+      {/* Additional user details */}
+      <View style={styles.detailsContainer}>
+        <Text style={styles.detailsTitle}>Details</Text>
+        <Text style={styles.detailItem}>Join Date: {joinDate}</Text>
+        <Text style={styles.detailItem}>Last Login: {lastLogin}</Text>
+        <Text style={styles.detailItem}>Location: {location}</Text>
       </View>
     </View>
   );
@@ -50,47 +50,78 @@ const AccountPage = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    backgroundColor: '#f0f0f0', // Light background color
+    padding: 20,
   },
-  contentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 16,
+  profileHeader: {
+    alignItems: 'center',
+    marginBottom: 30,
   },
-  header: {
-    fontSize: 24,
+  profilePic: {
+    backgroundColor: '#e0e0e0', // Placeholder background color for profile pic
+  },
+  profileName: {
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginTop: 8,
+    color: '#333', // Dark text for light background
   },
-  section: {
-    flex: 1,
-    marginRight: 16,
+  profileEmail: {
+    fontSize: 16,
+    color: '#555', // Dimmed text color
   },
-  sectionTitle: {
+  actionsContainer: {
+    backgroundColor: '#ffffff', // Light color for action buttons background
+    borderRadius: 10,
+    padding: 16,
+    marginBottom: 20,
+    shadowColor: '#000', // Shadow to lift the container
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  actionButton: {
+    backgroundColor: '#e7e7e7', // White button background for a cleaner look
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 25, // Rounded corners for a modern look
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    borderWidth: 1, // Slight border for definition
+    borderColor: '#dddddd', // Light grey border color
+    shadowColor: '#000', // Shadow for depth
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  actionText: {
+    fontSize: 16,
+    fontWeight: '500', // Medium text weight
+    color: '#333', // Dark grey text for better readability
+  },
+  detailsContainer: {
+    padding: 16,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  detailsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
+    color: '#333', // Dark text for light background
   },
-  avatarContainer: {
-    marginRight: 20,
-    marginTop: -10,
-  },
-  button: {
-    backgroundColor: '#3498db',
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 8,
-  },
-  logoutButton: {
-    backgroundColor: 'red',
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 8,
-  },
-  buttonText: {
-    color: '#ffffff',
-    textAlign: 'center',
-    fontWeight: 'bold',
+  detailItem: {
+    fontSize: 16,
+    color: '#555', // Dimmed text color
+    marginBottom: 4,
   },
 });
 

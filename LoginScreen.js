@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity,Platform, Image, TextInput, StyleSheet } from 'react-native';
 import { Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
 import BottomTabNavigator from './BottomTabNavigator';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import colors from './colors';  // Assuming colors.js is in the same directory
 
-const COLORS = {
-  primary: '#075eec',
-  secondary: '#222',
-  white: '#fff',
-};
 
 const LoginScreen = ({ navigation }) => {
   const [employeeId, setEmployeeId] = useState('');
@@ -18,7 +13,8 @@ const LoginScreen = ({ navigation }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const url = 'https://capstone-cmml.onrender.com'
+  // const url = 'https://capstone-cmml.onrender.com'
+  const url = 'http://localhost:3001'; // Define your API URL here
   
   const handleLogin = async () => {
     try {
@@ -54,64 +50,52 @@ const LoginScreen = ({ navigation }) => {
     }
   };
 
+  
+
+
   return (
     <View style={styles.container}>
-      {/* Icon added above the Card */}
-      <IconButton
-        icon="login-variant"
-        color={COLORS.primary}
-        size={70}
-        onPress={() => console.log('Icon pressed')}
-        style={styles.icon}
+      <Image
+        source={require('./images/desk-synergy1.png')} // Adjust the path based on your project structure
+        style={styles.logo}
       />
-
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title style={styles.title}>Login</Title>
-          <Paragraph style={styles.subtitle}>Manage your workspace here</Paragraph>
-
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="email-address"
-            onChangeText={(email) => setEmployeeId(email)}
-            placeholder="Email address"
-            placeholderTextColor="#6b7280"
-            style={styles.inputControl}
-            value={employeeId}
-          />
-
-          <TextInput
-            autoCorrect={false}
-            onChangeText={(pwd) => setPassword(pwd)}
-            placeholder="Password"
-            placeholderTextColor="#6b7280"
-            style={styles.inputControl}
-            secureTextEntry={true}
-            value={password}
-          />
-
-          <Button
-            mode="contained"
-            onPress={handleLogin}
-            style={styles.btn}
-            labelStyle={styles.btnText}
-          >
-            Sign in
-          </Button>
-
-          <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.formFooter}>
-            <Text style={styles.formFooterText}>
-              Don't have an account? <Text style={styles.formFooterLink}>Sign up</Text>
-            </Text>
-          </TouchableOpacity>
-
-          {error !== '' && <Text style={styles.errorMessage}>{error}</Text>}
-        </Card.Content>
-      </Card>
+      <Text style={styles.title}>Welcome, Glad to see you!</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={setEmployeeId}
+        value={employeeId}
+        placeholder="EMP ID"
+        keyboardType="email-address"
+      />
+      <TextInput
+        style={styles.input}
+        secureTextEntry
+        onChangeText={setPassword}
+        value={password}
+        placeholder="Password"
+      />
+      <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Login</Text>
+      </TouchableOpacity>
+      <Text style={styles.registerText}>
+        Don't have an account?{' '}
+        <Text onPress={() => navigation.navigate('Register')} style={styles.registerLink}>
+          Sign Up Now
+        </Text>
+      </Text>
+      {error !== '' && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };
+
+
+// Determine the background style based on the platform
+const backgroundStyle = Platform.select({
+  web: {
+    backgroundImage: 'linear-gradient(180deg, #94B3FD 0%, #B983FF 100%)',
+  },
+  default: {},
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -119,76 +103,54 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#40E0D0', // Updated to match the blue color
-  },
-  card: {
-    width: '80%',
-    padding: 16,
-    borderRadius: 12,
-    backgroundColor: '#fff',
-    elevation: 4,
-    borderWidth: 3,
-    borderColor: '#a832ff', // Neon-ish purple border color
-    height: '65%',
+    // This background should be set only if Platform.OS === 'web'
+    ...backgroundStyle,
   },
   title: {
-    fontSize: 27,
-    fontWeight: '700',
-    color: COLORS.secondary,
-    marginBottom: 6,
-    textAlign: 'center',
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 30,
   },
-  subtitle: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#929292',
-    textAlign: 'center',
-    marginBottom: 24,
+  input: {
+    width: '80%',
+    padding: 16,
+    marginBottom: 10,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: '#fff',
+    backgroundColor: '#fff',
+    color: '#000',
+    fontSize: 16,
   },
-  inputControl: {
-    height: 44,
-    backgroundColor: '#f1f5f9',
-    marginBottom: 16,
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    fontSize: 15,
-    fontWeight: '500',
-    color: COLORS.secondary,
-  },
-  btn: {
-    borderRadius: 8,
-    marginBottom: 24,
-    backgroundColor: COLORS.primary,
-  },
-  btnText: {
-    fontSize: 18,
-    lineHeight: 26,
-    fontWeight: '600',
-    color: COLORS.white,
-  },
-  formFooter: {
-    marginTop: 'auto',
+  loginButton: {
+    width: '80%',
+    backgroundColor: '#ffffff',
+    padding: 16,
+    borderRadius: 25,
     alignItems: 'center',
+    marginBottom: 10,
   },
-  formFooterText: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: COLORS.secondary,
-    textAlign: 'center',
-    letterSpacing: 0.15,
+  loginButtonText: {
+    fontSize: 18,
+    color: '#8E2DE2', // Adjusted to match your gradient colors
+    fontWeight: 'bold',
   },
-  formFooterLink: {
+  registerText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  registerLink: {
     textDecorationLine: 'underline',
   },
-  errorMessage: {
-    color: COLORS.primary,
+  error: {
+    color: 'red',
     marginTop: 10,
   },
-  icon: {
-    position: 'absolute',
-    top: 30,
-    right: 135,
-  },  
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
+  },
 });
-
 export default LoginScreen;

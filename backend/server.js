@@ -259,6 +259,48 @@ projectRoutes.post('/tasktoggle', async (req, res) => {
 
 const roomRoutes = express.Router();
 
+roomRoutes.get('/rooms', async (req, res) => {
+  try {
+    console.log('in the new get rooms API')
+    const rooms = await Room.find(); // Fetch all rooms from the database
+    res.json(rooms);
+  } catch (error) {
+    console.error('Error retrieving rooms:', error);
+    res.status(500).send('Error retrieving rooms');
+  }
+});
+
+// This is the API endpoint that would handle the PUT request to update booking status
+roomRoutes.put('/rooms/updateBooking', async (req, res) => {
+  try {
+    
+    const { type, startTime, booked } = req.body;
+    console.log('in the updatebooking API', type, startTime, booked)
+
+    // Find the room with the specified type
+    const room = await Room.findOne({ type: type });
+    if (!room) {
+      return res.status(404).send('Room not found');
+    }
+
+    // Find the time slot within that room to update
+    const timeSlotIndex = room.times.findIndex(slot => slot.startTime === startTime);
+    if (timeSlotIndex === -1) {
+      return res.status(404).send('Time slot not found');
+    }
+
+    // Update the booked status of the time slot
+    room.times[timeSlotIndex].booked = booked;
+
+    // Save the updated room
+    await room.save();
+    res.status(200).send('Booking status updated successfully');
+  } catch (error) {
+    console.error('Error updating booking status:', error);
+    res.status(500).send('Error updating booking status');
+  }
+});
+
 roomRoutes.get('/rooms/:roomName/times/:times', async (req, res) => {
  
   try {
