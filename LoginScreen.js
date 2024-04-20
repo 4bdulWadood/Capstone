@@ -6,10 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import colors from './colors';  // Assuming colors.js is in the same directory
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 74636fde2549a04890819bba86fcc7fc62da5df7
 const COLORS = {
   primary: '#075eec',
   secondary: '#222',
@@ -27,12 +23,11 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       const loginData = { employeeId, password };
-<<<<<<< HEAD
+
      // const response = await axios.post('http://18.216.105.223:3001/auth/login', loginData);
      const response = await axios.post('http://localhost:3001/auth/login', loginData);
-=======
-      const response = await axios.post(`${url}/auth/login`, loginData);
->>>>>>> 74636fde2549a04890819bba86fcc7fc62da5df7
+
+      //const response = await axios.post(`${url}/auth/login`, loginData);
 
       if (employeeId === 'admin' && password === 'admin') {
         navigation.navigate('Account', { employeeID: employeeId });
