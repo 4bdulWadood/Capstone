@@ -9,6 +9,7 @@ const Project = require('./Projects');
 const Room = require('./Rooms');
 const Notification = require('./Notifications');
 const Temperature = require('./Temperature');
+const bcrypt = require('bcryptjs'); // Import bcryptjs for password hashing
 
 const { exec } = require('child_process');
 const { getSystemErrorMap } = require('util');
@@ -19,11 +20,11 @@ const app = express();
 // Express middleware and configuration
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
 
 // Connect to MongoDB
-// mongoose.connect('mongodb://127.0.0.1:27017/auth');
+//mongoose.connect('mongodb://127.0.0.1:27017/auth');
 
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -31,6 +32,41 @@ const uri = "mongodb+srv://admin:admin@capstone.ewnejlz.mongodb.net/auth?retryWr
 mongoose.connect(uri).then(() => console.log('Connected to MongoDB Atlas'))
   .catch(err => console.error('Error connecting to MongoDB Atlas:', err));
 
+
+// API data routes
+
+// API route to change user password
+app.post('http://localhost:3001/change-password', async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const employeeId = req.session.employeeId; // Assuming you have a session with userId stored
+
+  try {
+    // Find the user by userId
+    const user = await User.findById(employeeId);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Check if the current password matches the stored hashed password
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: 'Current password is incorrect' });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password in MongoDB
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ success: true, message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Error changing password:', error);
+    res.status(500).json({ success: false, message: 'An error occurred while changing password' });
+  }
+});
 
 // API data routes
 app.get('/api/data', (req, res) => {

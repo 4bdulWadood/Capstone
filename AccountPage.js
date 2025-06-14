@@ -1,11 +1,13 @@
+// AccountPage.js
+
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from 'react-native-paper';
 
-const AccountPage = ({route}) => {
+const AccountPage = ({ route }) => {
   const navigation = useNavigation();
-  const {employeeName, employeePic} = route.params;
+  const { employeeName, employeePic } = route.params;
   const joinDate = 'January 5, 2020';
   const lastLogin = 'March 28, 2024, 3:42 PM';
   const location = 'New York, USA';
@@ -15,7 +17,11 @@ const AccountPage = ({route}) => {
     navigation.navigate('Home');
   };
 
-   return (
+  const handleChangePassword = () => {
+    navigation.navigate('ChangePassword'); // Navigate to ChangePasswordScreen
+  };
+
+  return (
     <View style={styles.container}>
       <View style={styles.profileHeader}>
         <Avatar.Image
@@ -28,7 +34,7 @@ const AccountPage = ({route}) => {
       </View>
 
       <View style={styles.actionsContainer}>
-        <TouchableOpacity style={styles.actionButton} onPress={() => {/* Change password logic */}}>
+        <TouchableOpacity style={styles.actionButton} onPress={handleChangePassword}>
           <Text style={styles.actionText}>Change Password</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={handleLogout}>

@@ -1,9 +1,6 @@
-// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from './LoginScreen';
-import RegisterScreen from './RegisterScreen';
 import homepage from './homepage';
 import PMPage from './PMPage';
 import BottomTabNavigator from './BottomTabNavigator';
@@ -14,6 +11,9 @@ import AddProject from './AddProjectPage';
 import AddNotification from './AddNotification';
 import MeetingRoom from './MeetingRoom';
 import NewMeetingScreen from './NewMeetingScreen';
+import ChangePasswordScreen from './ChangePasswordScreen'; // Import the ChangePasswordScreen component
+import RegisterScreen from './RegisterScreen'; // Import the RegisterScreen component
+import LoginScreen from './LoginScreen'; // Import the LoginScreen component
 
 
 const Stack = createStackNavigator();
@@ -67,13 +67,13 @@ const App = () => {
 
         <Stack.Screen
           name="AccountPage"
-          component={AccountPage} // Use a WebView component for home.html
+          component={AccountPage}
           options={{ headerShown: true }}
         />
 
-      <Stack.Screen
+        <Stack.Screen
           name="AddNotification"
-          component={AddNotification} // Use a WebView component for home.html
+          component={AddNotification}
           options={{ headerShown: true }}
         />  
         
@@ -82,12 +82,19 @@ const App = () => {
           component={MeetingRoom}
           options={{ headerShown: true }}
         />
-      <Stack.Screen
+
+        <Stack.Screen
           name="NewMeetingScreen"
           component={NewMeetingScreen}
           options={{ headerShown: true }}
         />
 
+        {/* Add the ChangePassword screen to the navigation */}
+        <Stack.Screen
+          name="ChangePassword"
+          component={ChangePasswordScreen}
+          options={{ headerShown: true }}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>
