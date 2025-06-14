@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   bookButton: {
-    backgroundColor: '#1e90ff', // This is a blue color, change as needed.
+    backgroundColor: '#a832ff', // This is a blue color, change as needed.
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
@@ -97,7 +97,8 @@ const RoomListScreen = () => {
 
     const navigation = useNavigation();
     const [roomsData, setRoomsData] = useState([]);
-    const API_URL = 'http://localhost:3001/auth/rooms'; // Replace with your actual API URL
+    const API_URL = 'https://capstone-cmml.onrender.com/auth/rooms' // Replace with your actual API URL
+    // const API_URL = 'http://localhost:3001/auth/rooms'; // Replace with your actual API URL
   
     useEffect(() => {
       const fetchRoomsData = async () => {

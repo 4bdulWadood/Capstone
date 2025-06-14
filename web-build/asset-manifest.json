@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.js": "/static/js/main.91114b62.js",
-    "static/js/469.f5012f93.js": "/static/js/469.f5012f93.js",
+    "main.js": "/static/js/main.54bcdb9c.js",
+    "static/js/393.86fe9cc7.js": "/static/js/393.86fe9cc7.js",
     "static/media/MaterialIcons.ttf": "/static/media/MaterialIcons.120b4c7bbd155bd0a04d.ttf",
-    "static/media/desk-synergy.png": "/static/media/desk-synergy.2ce28a6bf85503a0e875.png",
+    "static/media/desk-synergy1.png": "/static/media/desk-synergy1.297c80187d508a6d46c6.png",
+    "static/media/Ishan-photo1.jpg": "/static/media/Ishan-photo1.cefe05919656ced7db54.jpg",
     "index.html": "/index.html",
     "serve.json": "/serve.json",
     "manifest.json": "/manifest.json",
-    "main.91114b62.js.map": "/static/js/main.91114b62.js.map",
-    "469.f5012f93.js.map": "/static/js/469.f5012f93.js.map"
+    "main.54bcdb9c.js.map": "/static/js/main.54bcdb9c.js.map",
+    "393.86fe9cc7.js.map": "/static/js/393.86fe9cc7.js.map"
   },
   "entrypoints": [
-    "static/js/469.f5012f93.js",
-    "static/js/main.91114b62.js"
+    "static/js/393.86fe9cc7.js",
+    "static/js/main.54bcdb9c.js"
   ]
 }

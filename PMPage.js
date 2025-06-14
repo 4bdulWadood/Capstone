@@ -24,8 +24,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useFocusEffect } from '@react-navigation/native';
 
 
-// const API_URL = 'https://capstone-cmml.onrender.com'; // Define your API URL here
-const API_URL = 'http://localhost:3001'; // Define your API URL here
+const API_URL = 'https://capstone-cmml.onrender.com'; // Define your API URL here
+// const API_URL = 'http://localhost:3001'; // Define your API URL here
 
 
 
@@ -40,9 +40,28 @@ const PHASES = [
   { name: 'Deployment', percentage: Math.floor(Math.random() * 100) },
 ];
 
+// const renderPhaseCard = (navigation, phase, projectName, project) => {
+//   var count = 0, count2 = 0;
+//   project.Tasks.forEach(item =>{
+//     if(phase.name === item.taskPhase){
+//       count++;
+//     }
+
+//     if(phase.name === item.taskPhase && item.taskComplete){
+//       count2++;
+//     }
+//   })
+ 
+//   console.log(count, count2);
+//   var percentage = (count2 / count) * 100;
+
+//   if(isNaN(percentage)){
+//     percentage = 0;
+//   }
+
 const renderPhaseCard = (navigation, phase, projectName, project) => {
   var count = 0, count2 = 0;
-  project.Tasks.forEach(item =>{
+  project.Tasks.forEach(item => {
     if(phase.name === item.taskPhase){
       count++;
     }
@@ -50,14 +69,11 @@ const renderPhaseCard = (navigation, phase, projectName, project) => {
     if(phase.name === item.taskPhase && item.taskComplete){
       count2++;
     }
-  })
- 
-  console.log(count, count2);
-  var percentage = (count2 / count) * 100;
+  });
 
-  if(isNaN(percentage)){
-    percentage = 0;
-  }
+  console.log(count, count2);
+  // Calculate the percentage and use Math.ceil to round it up
+  var percentage = count > 0 ? Math.ceil((count2 / count) * 100) : 0;
 
 //   return (
 //     <TouchableOpacity onPress={() => navigation.navigate('Tasks', { phase, projectName })}>
@@ -365,10 +381,10 @@ const TasksPage = ({ route }) => {
           </View>
           <View style={styles.modalButtons}>
             <View style={styles.buttonWrapper}>
-              <Button title="Save" onPress={handleSaveTask} />
+              <Button title="Save" onPress={handleSaveTask} color = "#a832ff" />
             </View>
             <View style={[styles.buttonWrapper]}>
-              <Button title="Cancel" onPress={handleCloseModal} />
+              <Button title="Cancel" onPress={handleCloseModal} color = "#a832ff"/>
             </View>
           </View>
         </View>
@@ -810,17 +826,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   updateButton: {
-    backgroundColor: '#2ecc71', // Green background color
+    backgroundColor: '#a832ff', // Green background color
     padding: 12,
     borderRadius: 8,
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 10,
+
   },
   addButtonText: {
     color: '#ffffff',
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 16,
+    backgroundColor: '#a832ff',
   },
   modalContainer: {
     flex: 1,
@@ -841,19 +859,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     padding: 4,
-    backgroundColor: '#3498db', // Header background color
+    backgroundColor: '#a832ff', // Header background color
     color: '#fff', // Header text color
     textAlign: 'center',
+    borderRadius: 5,
   },
   inputField: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: '#a832ff',
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
   },
   modalButtons: {
+    backgroundColor: '#a832ff',
     flexDirection: 'row',
     justifyContent: 'space-between', // or 'space-around' based on your preference
     marginHorizontal: 20, // Adjust the margin as needed
@@ -862,13 +882,14 @@ const styles = StyleSheet.create({
   },
  
   saveButton: {
-    backgroundColor: '#3498db',
+    backgroundColor: '#a832ff',
     padding: 12,
     borderRadius: 8,
     marginRight: 10, // Add margin to the right of "Save" button
   },
 
   modalButtons: {
+
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 10,
@@ -882,6 +903,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red'
   },
   cancelButton: {
+    backgroundColor: '#a832ff',
     padding: 12,
     borderRadius: 8,
     marginLeft: 10, // Add margin to the left of "Cancel" button
@@ -976,19 +998,19 @@ const styles = StyleSheet.create({
     width: '40%',
     backgroundColor: '#ecf0f1',
   },
-  inputField: {
-    borderWidth: 1,
-    borderColor: '#bdc3c7',
-    borderRadius: 5,
-    padding: 10,
-    marginVertical: 5,
-  },
-  updateButton: {
-    backgroundColor: '#3498db',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
+  // inputField: {
+  //   borderWidth: 1,
+  //   borderColor: '#bdc3c7',
+  //   borderRadius: 5,
+  //   padding: 10,
+  //   marginVertical: 5,
+  // },
+  // updateButton: {
+  //   backgroundColor: '#3498db',
+  //   padding: 10,
+  //   borderRadius: 5,
+  //   marginTop: 10,
+  // },
   sampleEmployee: {
     marginBottom: 5,
   },
@@ -1129,7 +1151,6 @@ const styles = StyleSheet.create({
   }
 
 });
-
 
 
 export default PMPage;

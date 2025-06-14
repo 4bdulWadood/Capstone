@@ -1,10 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Platform, Dimensions } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
+
+const backgroundStyle = Platform.select({
+  web: {
+    backgroundImage: 'linear-gradient(180deg, #94B3FD 0%, #B983FF 100%)',
+    width: width,
+    height: height,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  default: {
+    flex: 1,
+  },
+});
 
 export default function OnboardScreen() {
   const navigation = useNavigation();
@@ -14,16 +28,14 @@ export default function OnboardScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, backgroundStyle]}>
       <Onboarding
         onDone={handleDone}
         onSkip={handleDone}
-        //nextLabel={handleDone}
+        skipLabel="Skip" // Optionally customize skip label
         containerStyles={{ paddingHorizontal: 15 }}
         pages={[
-
           {
-            backgroundColor: '#40E0D0',
             image: (
               <View style={styles.lottieContainer}>
                 <LottieView source={require('./animations/arrow.json')} autoPlay loop />
@@ -32,28 +44,24 @@ export default function OnboardScreen() {
             ),
           },
           {
-            backgroundColor: '#40E0D0',
-            
             image: (
               <View style={styles.lottieContainer}>
                 <LottieView source={require('./animations/happy.json')} autoPlay loop />
                 <Text style={styles.titleText}>Boost Productivity</Text>
-                <Text style={styles.smallText}>Have seamless workforce collaborataion</Text>
+                <Text style={styles.smallText}>Seamless Work collaboration</Text>
               </View>
             ),
           },
           {
-            backgroundColor: '#fef37c',
             image: (
               <View style={styles.lottieContainer}>
                 <LottieView source={require('./animations/WorkEnvironment.json')} autoPlay loop />
-                <Text style={styles.titleText}>Work Seemingly</Text>
+                <Text style={styles.titleText}>Work Seamlessly</Text>
                 <Text style={styles.smallText}>Handle office functions in one place</Text>
               </View>
             ),
           },
           {
-            backgroundColor: "#800080",
             image: (
               <View style={styles.lottieContainer}>
                 <LottieView source={require('./animations/rocket.json')} autoPlay loop />
@@ -62,7 +70,6 @@ export default function OnboardScreen() {
               </View>
             ),
           },
-          
         ]}
       />
     </View>
@@ -72,7 +79,7 @@ export default function OnboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent', // Set to transparent to let the background style show
   },
   lottieContainer: {
     flex: 1,
@@ -86,13 +93,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   smallText: {
-    marginTop: 10, // Adjust the spacing as needed
-    fontSize: 21, // Adjust the font size as needed
-    color: 'white',
-  },
-  title: {
     marginTop: 10,
     fontSize: 21,
     color: 'white',
-  }
+  },
 });

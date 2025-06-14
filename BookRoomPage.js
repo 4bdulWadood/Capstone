@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'green',
+    backgroundColor: 'a832ff'
   },
   button: {
     marginTop: 8,

@@ -4,7 +4,6 @@
 node_modules/
 
 # Depedency lock files
-package-lock.json
 yarn.lock
 
 

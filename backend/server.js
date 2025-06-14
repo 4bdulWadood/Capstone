@@ -88,6 +88,29 @@ authRoutes.get('/users', async (req, res) => {
   }
 });
 
+// Endpoint to change password
+app.put('/auth/change-password', async (req, res) => {
+  const { employeeId, newPassword } = req.body;
+  console.log('in the changes password api')
+  try {
+    // Find the user by employeeId
+    const user = await User.findOne({ employeeId });
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // Update the user with the new password
+    user.password = newPassword;
+    await user.save();
+
+    res.json({ msg: 'Password updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
 authRoutes.post('/get-suggestions.py', (req, res) => {
   // Build the command to execute the Python script
   console.log('reached suggestions api');
@@ -147,12 +170,11 @@ authRoutes.post('/register', async (req, res) => {
 const projectRoutes = express.Router();
 
 projectRoutes.post('/projects', async (req, res) => {
-  const { Name, Percentage_Complete, Due_Date, Team } = req.body;
+  const { Name, Due_Date, Team } = req.body;
   
   try {
     const newProject = new Project({
       Name,
-      Percentage_Complete,
       Due_Date,
       Team,
       // Initially, you can either omit the Tasks field or set it as an empty array
@@ -584,7 +606,7 @@ notiRoutes.patch('/notifications/read', async (req, res) => {
 
 notiRoutes.delete('/notifications/delete', async (req, res) => {
   const { title } = req.query;
-  
+  console.log('in the notifications', title)
   try {
     // Delete the notification by title
     const notificationDeleted = await Notification.findOneAndDelete({ title: title });

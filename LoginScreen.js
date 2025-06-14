@@ -13,8 +13,8 @@ const LoginScreen = ({ navigation }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  // const url = 'https://capstone-cmml.onrender.com'
-  const url = 'http://localhost:3001'; // Define your API URL here
+  const url = 'https://capstone-cmml.onrender.com'
+  // const url = 'http://localhost:3001'; // Define your API URL here
   
   const handleLogin = async () => {
     try {

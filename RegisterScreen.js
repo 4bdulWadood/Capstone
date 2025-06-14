@@ -9,8 +9,8 @@ const RegisterScreen = ({ navigation }) => {
   const [employeeId, setEmployeeId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  // const url = 'https://capstone-cmml.onrender.com'
-  const url = 'http://localhost:3001'
+  const url = 'https://capstone-cmml.onrender.com'
+  // const url = 'http://localhost:3001'
 
   const handleHome = () => {
     navigation.navigate('Home');

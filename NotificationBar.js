@@ -12,6 +12,7 @@ const NotificationBar = ({ route }) => {
   const { employeeId } = route.params;
   const navigation = useNavigation();
   const url = 'https://capstone-cmml.onrender.com'
+  // const url = 'http://localhost:3001'
 
   // Function to fetch notifications
   const fetchNotifications = async () => {
@@ -60,14 +61,22 @@ const NotificationBar = ({ route }) => {
       <Text style={styles.header}>Notifications</Text>
       
       {/* Refresh Button */}
-      <TouchableOpacity onPress={fetchNotifications} style={styles.refreshButton}>
+      {/* <TouchableOpacity onPress={fetchNotifications} style={styles.refreshButton}>
         <Icon name="refresh" size={20} color="#3498db" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       
       {/* Add Notification Button */}
-      <TouchableOpacity onPress={() => navigation.navigate('AddNotification')} style={styles.addNotificationButton}>
+      {/* <TouchableOpacity onPress={() => navigation.navigate('AddNotification')} style={styles.addNotificationButton}>
         <Icon name="add-alert" size={30} color="#3498db" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+
+      <TouchableOpacity onPress={fetchNotifications} style={styles.refreshButton}>
+    <Icon name="refresh" size={24} color="#a832ff" />
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => navigation.navigate('AddNotification')} style={styles.addNotificationButton}>
+    <Icon name="add-alert" size={30} color="#a832ff" /> 
+  </TouchableOpacity>
       
       {/* Render notifications */}
       {notifications.map((notification, index) => (
@@ -131,19 +140,19 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 5,
   },
-  markAsReadButton: {
-    marginTop: 10,
-    backgroundColor: '#4CAF50',
-    padding: 10,
-    borderRadius: 5,
-  },
-  markAsReadButtonText: {
-    color: '#fff',
-    textAlign: 'center',
-  },
-  cardRead: {
-    opacity: 0.5, // Or use backgroundColor to dim the card
-  },
+  // markAsReadButton: {
+  //   marginTop: 10,
+  //   backgroundColor: '#4CAF50',
+  //   padding: 10,
+  //   borderRadius: 5,
+  // },
+  // markAsReadButtonText: {
+  //   color: '#fff',
+  //   textAlign: 'center',
+  // },
+  // cardRead: {
+  //   opacity: 0.5, // Or use backgroundColor to dim the card
+  // },
   titleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between', // This spreads out the title and the delete button on both ends
@@ -165,6 +174,27 @@ const styles = StyleSheet.create({
     marginTop: -30,
     marginRight: 10,
     marginBottom: 5,
+  },
+  cardRead: {
+    backgroundColor: '#fff', // Keep background color white for consistency
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(163, 159, 159, 0.5)', // Grey border with lower opacity
+    borderStyle: 'dashed', // Style the border as dashed or solid based on your preference,
+    opacity: 0.5
+  },
+  markAsReadButton: {
+    marginTop: 10,
+    backgroundColor: '#a832ff', // Update the button color to purple to match the theme
+    padding: 10,
+    borderRadius: 20,
+  },
+  markAsReadButtonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 

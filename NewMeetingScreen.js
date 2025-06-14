@@ -16,8 +16,8 @@ const NewMeetingScreen = ({route}) => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [notification, setNotification] = useState({ visible: false, message: '', theme: 'light' });
 
-//   const API_URL = 'https://capstone-cmml.onrender.com';
-  const API_URL = 'http://localhost:3001';
+  const API_URL = 'https://capstone-cmml.onrender.com';
+  // const API_URL = 'http://localhost:3001';
 
   const timeSlots = [
     '09:00AM', '10:00AM', '11:00AM',
@@ -31,16 +31,18 @@ const NewMeetingScreen = ({route}) => {
 
   const TimeSlotButton = ({ time, onPress, isSelected, isBooked }) => (
     <TouchableOpacity
-      onPress={onPress}
-      style={[
-        styles.timeSlot,
-        isSelected ? styles.selectedTimeSlot : null,
-        isBooked && !isSelected ? styles.bookedTimeSlot : null, // add condition for booked styling
-      ]}
-      disabled={isBooked} // disable the button if the time slot is booked
-    >
-      <Text style={styles.timeSlotText}>{time}</Text>
-    </TouchableOpacity>
+    onPress={onPress}
+    style={[
+      styles.timeSlot,
+      isSelected ? styles.selectedTimeSlot : null,
+      isBooked && !isSelected ? styles.bookedTimeSlot : null,
+    ]}
+    disabled={isBooked}
+  >
+    <Text style={isSelected ? styles.timeSlotTextSelected : styles.timeSlotText}>
+      {time}
+    </Text>
+  </TouchableOpacity>
   );
 
   const handleTimeSlotPress = (time) => {
@@ -199,7 +201,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   createButton: {
-    backgroundColor: '#1e90ff',
+    backgroundColor: '#a832ff',
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 6,
@@ -245,8 +247,12 @@ const styles = StyleSheet.create({
     width: '30%', // Approximate width to fit three across on most screens
   },
   selectedTimeSlot: {
-    backgroundColor: '#1e90ff', // Highlight color for selected time slot
+    backgroundColor: '#a832ff', // Highlight color for selected time slot
     borderColor: 'transparent',
+  },
+  timeSlotTextSelected: {
+    textAlign: 'center',
+    color: 'white',
   },
   timeSlotText: {
     textAlign: 'center',

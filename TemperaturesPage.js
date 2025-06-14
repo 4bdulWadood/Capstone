@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import axios from "axios";
 
 const TemperaturesPage = ({ route }) => {
@@ -56,8 +56,20 @@ const TemperaturesPage = ({ route }) => {
     }
   };
 
+  // Define background style based on the platform
+  const backgroundStyle = Platform.select({
+    web: {
+      backgroundImage: 'linear-gradient(180deg, #94B3FD 0%, #B983FF 100%)',
+      flex: 1,
+      height: '100vh', // Ensures the gradient fills the whole viewport height
+    },
+    default: {
+      flex: 1,
+    },
+  });
+  
   return (
-    <View style={styles.appContainer}>
+    <View style={[styles.appContainer, backgroundStyle]}>
       <View style={styles.temperatureDisplayContainer}>
         <View style={[styles.temperatureDisplay, tempColor === "hot" ? styles.hot : styles.cold]}>
           <Text style={styles.temperatureText}>{tempValue}</Text>
@@ -89,6 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    
   },
   temperatureDisplayContainer: {
     alignItems: "center",
@@ -102,6 +115,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 48,
     color: "#04040A",
+    backgroundColor: 'white'
   },
   temperatureText: {
     fontSize: 48,
@@ -146,7 +160,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   cold: {
-    shadowColor: "#3737CD",
+    shadowColor: "#249ef5",
     shadowOffset: { width: 5, height: 10 },
     shadowRadius: 75,
     shadowOpacity: 1,

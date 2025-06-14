@@ -1,7 +1,7 @@
 /* temp page css */
 
 :root {
-    --cold: 5px 10px 75px #3737CD;
+    --cold: 5px 10px 75px #249ef5;
     --hot: 5px 10px 75px #ff0000;
 }
 
@@ -46,7 +46,7 @@ body {
     border: none;
     background: none;
     font-size: 32px;
-    margin: 20px;
+    margin: 20px; 
     color: gray;
 }
 
